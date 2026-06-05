@@ -1,1 +1,2711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zero Risk Growth</title>
+<link rel="stylesheet" href="cc-tokens.css">
+<style>
 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--cc-font-body);
+  background: #fff;
+  color: var(--cc-ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── NAV ─────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: var(--cc-z-sticky);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 62px;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--cc-border-soft);
+}
+.nav-wordmark {
+  font-family: var(--cc-font-display);
+  font-size: 22px; font-weight: 900;
+  color: var(--cc-ink); letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 2px;
+  text-decoration: none;
+}
+.nav-wordmark .pp { width: 0.45em; height: 0.45em; background: var(--cc-violet); border-radius: 999px; display: inline-block; margin-left: 2px; flex-shrink: 0; }
+.nav-stages {
+  display: flex; gap: 4px; align-items: center;
+}
+.nav-stage-pill {
+  font-family: var(--cc-font-body);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border: 1.5px solid rgba(10,10,10,0.15);
+  border-radius: var(--cc-radius-pill);
+  color: rgba(10,10,10,0.4);
+  cursor: pointer;
+  transition: all var(--cc-dur-mid) var(--cc-ease-out);
+  background: transparent;
+}
+.nav-stage-pill:hover { color: var(--cc-ink); border-color: rgba(10,10,10,0.5); }
+.nav-stage-pill.active { background: var(--cc-violet); border-color: var(--cc-violet); color: var(--cc-white); }
+.nav-meta { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(10,10,10,0.35); }
+.nav-progress {
+  position: fixed; top: 62px; left: 0; right: 0;
+  height: 2px; background: transparent; z-index: var(--cc-z-sticky);
+}
+.nav-progress-bar { height: 100%; width: 0%; background: var(--cc-violet); transition: width 0.1s linear; }
+
+/* ── HERO ─────────────────────────────────── */
+.hero {
+  min-height: 100vh; position: relative;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 80px 48px 80px;
+  overflow: hidden;
+  background: #fff;
+}
+.hero-blob {
+  position: absolute; top: 0; left: 0;
+  width: 360px; height: 420px;
+  background: var(--cc-lavender);
+  border-radius: var(--cc-radius-blob);
+  z-index: 0;
+}
+.hero-burst {
+  position: absolute; top: 48px; right: 48px;
+  width: 160px; height: 160px;
+  z-index: 1; opacity: 0.9;
+  animation: spin-slow 18s linear infinite;
+}
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.hero-content { position: relative; z-index: 2; max-width: 1100px; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: var(--cc-track-eyebrow);
+  text-transform: uppercase;
+  color: var(--cc-fg-1); margin-bottom: 28px;
+}
+.eyebrow::before {
+  content: ''; width: 8px; height: 8px;
+  border-radius: 999px; background: var(--cc-violet);
+  display: inline-block; flex-shrink: 0;
+}
+.eyebrow.dark { color: var(--cc-fg-1); }
+.hero-title {
+  font-family: var(--cc-font-display);
+  font-size: clamp(64px, 9vw, 132px);
+  font-weight: 900; line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--cc-ink);
+  margin-bottom: 32px;
+}
+.pp {
+  display: inline-block;
+  width: 0.45em; height: 0.45em;
+  border-radius: 999px; background: var(--cc-violet);
+  vertical-align: middle; margin-left: 0.06em; flex-shrink: 0;
+}
+.hero-desc {
+  font-size: 18px; line-height: var(--cc-lh-relaxed);
+  color: var(--cc-fg-2); max-width: 560px;
+  margin-bottom: 56px;
+}
+.hero-desc strong { color: var(--cc-ink); font-weight: 600; }
+.hero-stats {
+  display: flex; gap: 0;
+  border: 1px solid var(--cc-border-soft);
+  border-radius: var(--cc-radius-md);
+  overflow: hidden;
+  width: fit-content;
+}
+.hero-stat {
+  padding: 20px 36px;
+  border-right: 1px solid var(--cc-border-soft);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-num {
+  font-family: var(--cc-font-display);
+  font-size: 28px; font-weight: 900;
+  line-height: 1; color: var(--cc-ink);
+  letter-spacing: -0.02em;
+}
+.hero-stat-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: var(--cc-track-eyebrow);
+  text-transform: uppercase; color: var(--cc-fg-2);
+}
+.hero-scroll {
+  position: absolute; bottom: 32px; right: 48px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--cc-fg-2); z-index: 2;
+}
+.hero-scroll-line { width: 32px; height: 1px; background: var(--cc-fg-2); }
+
+/* ── MARQUEE ─────────────────────────────────── */
+.marquee-strip {
+  overflow: hidden;
+  background: var(--cc-violet);
+  padding: 14px 0;
+  border-top: none; border-bottom: none;
+}
+.marquee-strip.light {
+  background: var(--cc-ink);
+  border-top: 1px solid var(--cc-border-onDark);
+  border-bottom: 1px solid var(--cc-border-onDark);
+}
+.marquee-strip.paper {
+  background: #fff;
+  border-top: 1px solid var(--cc-border-soft);
+  border-bottom: 1px solid var(--cc-border-soft);
+}
+.marquee-track {
+  display: flex; gap: 0;
+  width: max-content;
+  animation: marquee-scroll 22s linear infinite;
+}
+.marquee-track.slow { animation-duration: 32s; }
+.marquee-track.fast { animation-duration: 14s; }
+@keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-item {
+  display: inline-flex; align-items: center; gap: 20px;
+  padding: 0 24px;
+  font-family: var(--cc-font-display);
+  font-size: 15px; font-weight: 900;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--cc-white); white-space: nowrap;
+}
+.marquee-strip.paper .marquee-item { color: var(--cc-fg-2); }
+.marquee-star { color: var(--cc-white); font-size: 14px; }
+.marquee-strip.paper .marquee-star { color: var(--cc-violet); }
+.marquee-strip.light .marquee-item { color: var(--cc-grey-40); }
+.marquee-strip.light .marquee-star { color: var(--cc-violet); }
+
+/* ── SECTIONS ─────────────────────────────────── */
+.section {
+  padding: 100px 48px;
+  position: relative;
+}
+.section.dark { background: var(--cc-ink); }
+.section.paper { background: var(--cc-paper); }
+.section.bone { background: var(--cc-bone); }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-header { margin-bottom: 64px; }
+.stage-number {
+  font-family: var(--cc-font-display);
+  font-size: clamp(96px, 14vw, 180px);
+  font-weight: 900; line-height: 1;
+  letter-spacing: -0.04em;
+  position: absolute; right: 48px; top: 64px;
+  pointer-events: none; user-select: none;
+}
+.section.dark .stage-number { color: rgba(255,255,255,0.04); }
+.section.paper .stage-number, .section.bone .stage-number { color: rgba(10,10,10,0.05); }
+.section-title {
+  font-family: var(--cc-font-display);
+  font-size: clamp(36px, 4.5vw, 60px);
+  font-weight: 900; line-height: var(--cc-lh-snug);
+  letter-spacing: -0.025em;
+  margin-top: 14px; margin-bottom: 0;
+}
+.section.dark .section-title { color: var(--cc-white); }
+.section.paper .section-title, .section.bone .section-title { color: var(--cc-ink); }
+.section-sub {
+  margin-top: 16px;
+  font-size: 15px; line-height: var(--cc-lh-relaxed);
+  max-width: 620px;
+}
+.section.dark .section-sub { color: var(--cc-grey-55); }
+.section.paper .section-sub, .section.bone .section-sub { color: var(--cc-fg-2); }
+
+/* ── INTRO BLOCK ─────────────────────────────────── */
+.intro-block {
+  font-size: 17px; line-height: 1.75;
+  padding: 28px 32px;
+  border-left: 3px solid var(--cc-violet);
+  margin-bottom: 48px;
+}
+.section.dark .intro-block { color: var(--cc-grey-40); background: var(--cc-ink-soft); border-left-color: var(--cc-violet); }
+.section.paper .intro-block, .section.bone .intro-block { color: var(--cc-fg-2); background: var(--cc-grey-12); }
+
+/* ── DATA TABLE ─────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table thead th {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 0 20px 16px; text-align: left;
+  border-bottom: 2px solid var(--cc-border-soft);
+  color: var(--cc-grey-55);
+}
+.data-table tbody tr {
+  border-bottom: 1px solid var(--cc-border-soft);
+  transition: background var(--cc-dur-fast);
+  cursor: default;
+}
+.data-table tbody tr:hover { background: rgba(124,58,237,0.06); }
+.data-table td { padding: 18px 20px; vertical-align: top; line-height: 1.6; font-size: 14px; }
+.data-table td.field-col {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--cc-grey-55);
+  width: 200px; padding-right: 32px;
+}
+.section.dark .data-table thead th { border-color: var(--cc-border-soft); color: var(--cc-fg-2); }
+.section.dark .data-table tbody tr { border-color: var(--cc-border-soft); }
+.section.dark .data-table tbody tr:hover { background: rgba(124,58,237,0.05); }
+.section.dark .data-table td { color: var(--cc-fg-1); }
+.section.dark .data-table td.field-col { color: var(--cc-fg-2); }
+
+/* ── UVP GRID ─────────────────────────────────── */
+.uvp-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  background: var(--cc-border-soft);
+}
+.uvp-card {
+  background: var(--cc-grey-12);
+  padding: 40px; transition: background var(--cc-dur-mid);
+}
+.uvp-card:hover { background: var(--cc-lavender); }
+.uvp-card.span-2 { grid-column: 1 / -1; }
+.uvp-card-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--cc-violet);
+  margin-bottom: 14px; font-family: var(--cc-font-mono);
+}
+.uvp-card-headline {
+  font-family: var(--cc-font-display);
+  font-size: 22px; font-weight: 900; line-height: 1.2;
+  letter-spacing: -0.01em; color: var(--cc-ink);
+  margin-bottom: 8px;
+}
+.uvp-card-body { font-size: 15px; line-height: 1.7; color: var(--cc-fg-2); }
+.uvp-card-body strong { color: var(--cc-ink); font-weight: 600; }
+
+/* ── COMPETITOR TABLE ─────────────────────────────────── */
+.comp-table { width: 100%; border-collapse: collapse; }
+.comp-table th {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--cc-grey-55);
+  padding: 0 16px 14px; text-align: left;
+  border-bottom: 2px solid var(--cc-border-soft);
+}
+.comp-table td {
+  padding: 16px; border-bottom: 1px solid var(--cc-border-soft);
+  vertical-align: top; font-size: 13px; color: var(--cc-fg-2);
+  line-height: 1.5;
+}
+.comp-table td.name { font-weight: 700; color: var(--cc-ink); font-size: 14px; }
+.comp-table td.advantage {
+  color: var(--cc-violet); font-size: 12px;
+  font-weight: 500; line-height: 1.5;
+}
+.comp-table tr:hover td { background: rgba(124,58,237,0.05); }
+.key-box {
+  margin-top: 40px; padding: 36px 40px;
+  background: var(--cc-grey-12); border-radius: var(--cc-radius-lg);
+}
+.key-box-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--cc-violet);
+  margin-bottom: 20px; font-family: var(--cc-font-mono);
+}
+.key-box ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.key-box li {
+  font-size: 14px; line-height: 1.65;
+  color: var(--cc-fg-2); padding-left: 22px; position: relative;
+}
+.key-box li::before { content: '→'; position: absolute; left: 0; color: var(--cc-violet); font-size: 13px; }
+
+/* ── SEGMENTS ─────────────────────────────────── */
+.tam-image-wrap {
+  margin-bottom: 48px; border: 1px solid var(--cc-border-soft);
+  border-radius: var(--cc-radius-md); overflow: hidden;
+}
+.tam-image-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--cc-fg-2);
+  padding: 12px 20px; border-bottom: 1px solid var(--cc-border-soft);
+  background: var(--cc-grey-12); font-family: var(--cc-font-mono);
+}
+.tam-image-wrap img { display: block; max-width: 400px; margin: 0 auto; padding: 24px; width: 100%; }
+.segment-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  background: var(--cc-border-soft);
+}
+.segment-card {
+  background: var(--cc-grey-12);
+  padding: 28px 24px; transition: background var(--cc-dur-mid);
+  position: relative; overflow: hidden;
+}
+.segment-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--cc-violet); transform: scaleX(0);
+  transition: transform var(--cc-dur-mid) var(--cc-ease-out);
+  transform-origin: left;
+}
+.segment-card:hover { background: var(--cc-lavender); }
+.segment-card:hover::after { transform: scaleX(1); }
+.segment-card.wide { grid-column: 1 / -1; }
+.segment-name { font-size: 14px; font-weight: 700; color: var(--cc-ink); margin-bottom: 6px; }
+.segment-range {
+  font-size: 11px; font-family: var(--cc-font-mono);
+  color: var(--cc-violet); margin-bottom: 10px; letter-spacing: 0.04em;
+}
+.segment-why { font-size: 12px; color: var(--cc-fg-2); line-height: 1.65; }
+
+/* ── SIGNALS ─────────────────────────────────── */
+.signals-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  background: transparent;
+}
+.signal-card {
+  background: #fff; padding: 28px 28px;
+  transition: background var(--cc-dur-fast); position: relative; overflow: hidden;
+  border: 1px solid var(--cc-border-soft);
+}
+.signal-card:hover { background: var(--cc-lavender); }
+.signal-name {
+  font-size: 14px; font-weight: 700; color: var(--cc-ink);
+  margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+}
+.signal-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--cc-violet); flex-shrink: 0; }
+.signal-why { font-size: 13px; color: var(--cc-fg-2); line-height: 1.6; }
+.signal-card.wide { grid-column: 1 / -1; }
+
+/* ── PERSONALIZATION ─────────────────────────────────── */
+.perso-block { margin-bottom: 48px; }
+.perso-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--cc-violet);
+  margin-bottom: 16px; font-family: var(--cc-font-mono);
+  display: flex; align-items: center; gap: 14px;
+}
+.perso-label::after { content: ''; flex: 1; height: 1px; background: var(--cc-border-soft); }
+.perso-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+.perso-pill {
+  font-size: 13px; color: var(--cc-fg-2);
+  border: 1.5px solid var(--cc-border-soft);
+  padding: 8px 16px; border-radius: var(--cc-radius-pill);
+  background: var(--cc-grey-12);
+  transition: all var(--cc-dur-fast) var(--cc-ease-out);
+  cursor: default;
+}
+.perso-pill:hover { border-color: var(--cc-violet); color: var(--cc-ink); background: var(--cc-lavender); }
+.perso-rule {
+  font-family: var(--cc-font-display);
+  font-size: clamp(20px, 3vw, 32px); font-weight: 900;
+  color: var(--cc-ink); letter-spacing: -0.01em; line-height: 1.3;
+  padding: 36px 40px;
+  border: 2px solid var(--cc-violet); border-radius: var(--cc-radius-lg);
+  background: var(--cc-lavender);
+  display: flex; align-items: center; gap: 20px; margin-top: 48px;
+}
+.perso-rule .rule-burst { width: 40px; height: 40px; flex-shrink: 0; }
+
+/* ── ICP ACCORDION ─────────────────────────────────── */
+.icp-list { display: flex; flex-direction: column; gap: 2px; }
+.icp-item { border: 1px solid var(--cc-border-soft); border-radius: var(--cc-radius-md); overflow: hidden; margin-bottom: 0; }
+.icp-trigger {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 28px; cursor: pointer;
+  background: #fff; transition: background var(--cc-dur-fast);
+  user-select: none;
+}
+.icp-trigger:hover { background: var(--cc-grey-12); }
+.icp-trigger.open { background: var(--cc-ink); color: var(--cc-white); }
+.icp-trigger-left { display: flex; align-items: center; gap: 16px; }
+.icp-num {
+  font-family: var(--cc-font-mono); font-size: 11px; font-weight: 500;
+  color: var(--cc-violet); letter-spacing: 0.06em; min-width: 24px;
+}
+.icp-name { font-size: 15px; font-weight: 700; color: inherit; }
+.icp-toggle {
+  width: 28px; height: 28px; border: 1.5px solid currentColor;
+  border-radius: 999px; display: flex; align-items: center;
+  justify-content: center; transition: all var(--cc-dur-mid); flex-shrink: 0;
+  font-size: 18px; line-height: 1; color: var(--cc-grey-55);
+}
+.icp-trigger.open .icp-toggle { background: var(--cc-violet); border-color: var(--cc-violet); color: white; }
+.icp-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.42s cubic-bezier(.4,0,.2,1), padding 0.3s;
+  background: var(--cc-grey-12);
+  border-top: 1px solid var(--cc-border-soft);
+}
+.icp-body.open { max-height: 800px; }
+.icp-body-inner { padding: 28px 28px 28px 68px; }
+.icp-vp {
+  font-size: 16px; line-height: 1.75; color: var(--cc-fg-2);
+  border-left: 3px solid var(--cc-violet); padding-left: 20px;
+  margin-bottom: 16px;
+}
+.icp-details { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+.icp-detail {
+  font-size: 13px; color: var(--cc-fg-2); line-height: 1.6;
+  padding-left: 18px; position: relative;
+}
+.icp-detail::before { content: '—'; position: absolute; left: 0; color: var(--cc-grey-40); }
+.icp-detail-title { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cc-grey-55); margin-top: 20px; margin-bottom: 10px; }
+
+/* ── EMAIL TABS ─────────────────────────────────── */
+.email-tabs { display: flex; gap: 2px; margin-bottom: 2px; }
+.email-tab {
+  padding: 10px 24px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--cc-border-soft);
+  cursor: pointer; transition: all var(--cc-dur-fast);
+  color: var(--cc-fg-2); background: transparent;
+  border-radius: var(--cc-radius-pill);
+}
+.email-tab:hover { color: var(--cc-ink); border-color: rgba(10,10,10,0.4); }
+.email-tab.active { background: var(--cc-violet); border-color: var(--cc-violet); color: var(--cc-white); }
+.email-panels { position: relative; }
+.email-panel { display: none; }
+.email-panel.active { display: block; }
+.email-card {
+  border: 1px solid var(--cc-border-soft);
+  border-radius: var(--cc-radius-lg); overflow: hidden;
+  animation: fadeup 0.3s var(--cc-ease-out);
+}
+@keyframes fadeup { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.email-card-top {
+  padding: 14px 24px;
+  background: var(--cc-grey-12); border-bottom: 1px solid var(--cc-border-soft);
+  display: flex; align-items: center; gap: 10px;
+}
+.email-dot { width: 10px; height: 10px; border-radius: 999px; }
+.email-body {
+  padding: 36px 40px;
+  font-size: 15px; line-height: 2; color: var(--cc-fg-2);
+  background: #fff;
+  font-family: var(--cc-font-body);
+  white-space: pre-wrap;
+}
+.email-tag { color: var(--cc-violet); font-weight: 600; font-style: normal; }
+
+/* ── FOOTER ─────────────────────────────────── */
+.footer {
+  background: #fff; border-top: 1px solid var(--cc-border-soft);
+  padding: 56px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-logo {
+  font-family: var(--cc-font-display);
+  font-size: 28px; font-weight: 900;
+  letter-spacing: -0.02em; color: var(--cc-ink);
+  display: flex; align-items: center;
+}
+.footer-note { font-size: 12px; color: var(--cc-fg-2); letter-spacing: 0.06em; font-family: var(--cc-font-mono); }
+
+/* ── DARK SECTION OVERRIDES ─────────────────────────────────── */
+.section.dark .eyebrow { color: rgba(255,255,255,0.42); }
+/* UVP (§02) */
+.section.dark .uvp-grid { background: rgba(255,255,255,0.06); }
+.section.dark .uvp-card { background: var(--cc-ink-soft); }
+.section.dark .uvp-card:hover { background: rgba(124,58,237,0.15); }
+.section.dark .uvp-card-headline { color: var(--cc-white); }
+.section.dark .uvp-card-body { color: var(--cc-grey-55); }
+.section.dark .uvp-card-body strong { color: var(--cc-white); }
+/* Segments / TAM (§04) */
+.section.dark .segment-grid { background: rgba(255,255,255,0.06); }
+.section.dark .segment-card { background: var(--cc-ink-soft); }
+.section.dark .segment-card:hover { background: rgba(124,58,237,0.12); }
+.section.dark .segment-name { color: var(--cc-white); }
+.section.dark .segment-range { color: var(--cc-violet-bright); }
+.section.dark .segment-why { color: var(--cc-grey-55); }
+.section.dark .tam-image-wrap { border-color: rgba(255,255,255,0.1); }
+.section.dark .tam-image-label { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); color: var(--cc-grey-55); }
+/* Personalization pills (§06) */
+.section.dark .perso-pill {
+  border-color: rgba(124,58,237,0.4);
+  background: rgba(124,58,237,0.08);
+  color: var(--cc-grey-40);
+}
+.section.dark .perso-pill:hover {
+  border-color: var(--cc-violet);
+  color: var(--cc-white);
+  background: rgba(124,58,237,0.2);
+}
+.section.dark .perso-label::after { background: rgba(255,255,255,0.08); }
+.section.dark .perso-rule {
+  background: rgba(124,58,237,0.12);
+  border-color: var(--cc-violet);
+  color: var(--cc-white);
+}
+/* Email tabs (§08) */
+.section.dark .email-tabs { margin-bottom: 16px; }
+.section.dark .email-tab {
+  border-color: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.38);
+  background: transparent;
+}
+.section.dark .email-tab:hover {
+  color: var(--cc-white);
+  border-color: rgba(255,255,255,0.45);
+}
+.section.dark .email-tab.active {
+  background: var(--cc-violet);
+  border-color: var(--cc-violet);
+  color: var(--cc-white);
+}
+.section.dark .email-card {
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 24px 60px -20px rgba(0,0,0,0.5);
+}
+.section.dark .email-card-top {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.08);
+}
+
+/* ── SCROLL REVEAL ─────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s var(--cc-ease-out), transform 0.6s var(--cc-ease-out); }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .advantage-grid { grid-template-columns: 1fr; }
+  .advantage-card.span-2 { grid-column: 1; }
+  .comp-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .data-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+@media (max-width: 768px) {
+  /* Nav */
+  .nav { padding: 0 16px; gap: 8px; }
+  .nav-stages { display: none !important; }
+  .nav-project-tabs { border-left: none; padding-left: 0; margin-left: 0; gap: 6px; flex-wrap: wrap; }
+  .nav-project-tab { font-size: 10px; padding: 4px 10px; }
+  .nav-meta { display: none; }
+
+  /* Hero */
+  .hero { padding: 80px 20px 60px; }
+  .hero-title { font-size: clamp(48px, 12vw, 80px); }
+  .hero-blob { width: 200px; height: 240px; }
+  .hero-burst { width: 100px; height: 100px; top: 24px; right: 20px; }
+  .hero-stats { flex-direction: column; border-radius: var(--cc-radius-md); }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--cc-border-soft); padding: 16px 20px; }
+  .hero-stat:last-child { border-bottom: none; }
+  .hero-scroll { display: none; }
+
+  /* Sections */
+  .section { padding: 60px 20px; }
+  .section-header { margin-bottom: 40px; }
+  .stage-number { font-size: 72px; right: 16px; top: 32px; }
+
+  /* Grids → single column */
+  .uvp-grid,
+  .signals-grid,
+  .segment-grid,
+  .advantage-grid { grid-template-columns: 1fr; }
+  .uvp-card.span-2,
+  .advantage-card.span-2,
+  .segment-card.wide,
+  .signal-card.wide { grid-column: 1; }
+
+  /* Tables → scroll */
+  .comp-table,
+  .data-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .data-table td.field-col { width: 130px; }
+
+  /* Personalization */
+  .perso-rule { flex-direction: column; gap: 12px; }
+
+  /* Email */
+  .email-body { padding: 20px; font-size: 14px; }
+  .email-tabs { flex-wrap: wrap; }
+
+  /* ICP */
+  .icp-trigger { padding: 16px; }
+
+  /* Hub */
+  .hub-projects { grid-template-columns: 1fr; }
+  .hub-container { padding: 100px 20px 60px; }
+
+  /* Footer */
+  .footer { flex-direction: column; gap: 12px; align-items: flex-start; padding: 40px 20px; }
+
+  /* Marquee items spacing */
+  .marquee-item { padding: 0 14px; font-size: 13px; }
+
+  /* Intro block */
+  .intro-block { padding: 20px; }
+
+  /* Key box */
+  .key-box { padding: 24px 20px; }
+
+  /* Perso pills wrap */
+  .perso-pills { gap: 8px; }
+}
+
+/* ── ADVANTAGE GRID ─────────────────────────────────── */
+.advantage-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  background: var(--cc-border-soft);
+}
+.advantage-card {
+  background: var(--cc-grey-12);
+  padding: 40px; transition: background var(--cc-dur-mid);
+}
+.advantage-card:hover { background: var(--cc-lavender); }
+.advantage-card.span-2 { grid-column: 1 / -1; }
+.advantage-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--cc-violet);
+  margin-bottom: 14px; font-family: var(--cc-font-mono);
+}
+.advantage-headline {
+  font-family: var(--cc-font-display);
+  font-size: 22px; font-weight: 900; line-height: 1.2;
+  letter-spacing: -0.01em; color: var(--cc-ink);
+  margin-bottom: 8px;
+}
+.advantage-body { font-size: 15px; line-height: 1.7; color: var(--cc-fg-2); }
+.advantage-body strong { color: var(--cc-ink); font-weight: 600; }
+
+.section.dark .advantage-grid { background: rgba(255,255,255,0.06); }
+.section.dark .advantage-card { background: var(--cc-ink-soft); }
+.section.dark .advantage-card:hover { background: rgba(124,58,237,0.15); }
+.section.dark .advantage-headline { color: var(--cc-white); }
+.section.dark .advantage-body { color: var(--cc-grey-55); }
+.section.dark .advantage-body strong { color: var(--cc-white); }
+
+/* ── SEGMENT GRID ─────────────────────────────────── */
+.segment-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  background: var(--cc-border-soft);
+}
+.segment-card {
+  background: var(--cc-grey-12);
+  padding: 28px 24px; transition: background var(--cc-dur-mid);
+  position: relative; overflow: hidden;
+}
+.segment-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--cc-violet); transform: scaleX(0);
+  transition: transform var(--cc-dur-mid) var(--cc-ease-out);
+  transform-origin: left;
+}
+.segment-card:hover { background: var(--cc-lavender); }
+.segment-card:hover::after { transform: scaleX(1); }
+.segment-card.wide { grid-column: 1 / -1; }
+.segment-name { font-size: 14px; font-weight: 700; color: var(--cc-ink); margin-bottom: 6px; }
+.segment-range {
+  font-size: 11px; font-family: var(--cc-font-mono);
+  color: var(--cc-violet); margin-bottom: 10px; letter-spacing: 0.04em;
+}
+.segment-why { font-size: 12px; color: var(--cc-fg-2); line-height: 1.65; }
+
+.section.dark .segment-grid { background: rgba(255,255,255,0.06); }
+.section.dark .segment-card { background: var(--cc-ink-soft); }
+.section.dark .segment-card:hover { background: rgba(124,58,237,0.12); }
+.section.dark .segment-name { color: var(--cc-white); }
+.section.dark .segment-range { color: var(--cc-violet-bright); }
+.section.dark .segment-why { color: var(--cc-grey-55); }
+
+
+
+/* ── PROJECT SWITCHER ──────────────────────────────────── */
+.page { display: none; }
+.page.active { display: block; }
+.nav-project {
+  font-family: var(--cc-font-body);
+  font-size: 14px; font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(10,10,10,0.55);
+  padding: 0 8px;
+  border-left: 1px solid rgba(10,10,10,0.15);
+  display: none;
+}
+.nav-project.visible { display: block; }
+.nav-stages-p1, .nav-stages-p2 { display: none; }
+.nav-stages-p1.visible, .nav-stages-p2.visible, .nav-stages-p3.visible { display: flex; }
+
+/* ── NAV PROJECT TABS ────────────────────── */
+.nav-project-tabs {
+  display: none;
+  gap: 4px; align-items: center;
+  border-left: 1px solid rgba(10,10,10,0.12);
+  padding-left: 16px; margin-left: 8px;
+}
+.nav-project-tabs.visible { display: flex; }
+.nav-project-tab {
+  font-family: var(--cc-font-body);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border: 1.5px solid rgba(10,10,10,0.15);
+  border-radius: var(--cc-radius-pill);
+  color: rgba(10,10,10,0.4);
+  cursor: pointer;
+  transition: all var(--cc-dur-mid) var(--cc-ease-out);
+  background: transparent;
+  white-space: nowrap;
+}
+.nav-project-tab:hover { color: var(--cc-ink); border-color: rgba(10,10,10,0.5); }
+.nav-project-tab.active { background: var(--cc-ink); border-color: var(--cc-ink); color: var(--cc-white); }
+
+/* ── HUB ──────────────────────────────────── */
+.hub-container {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 80px 48px; background: #fff;
+}
+.hub-content { max-width: 720px; text-align: center; }
+.hub-title {
+  font-family: var(--cc-font-display);
+  font-size: clamp(64px, 9vw, 132px);
+  font-weight: 900; line-height: 0.95;
+  letter-spacing: -0.03em; color: var(--cc-ink);
+  margin-bottom: 20px;
+}
+.hub-credit {
+  font-size: 16px; line-height: 1.6;
+  color: var(--cc-fg-2); margin-bottom: 64px;
+}
+.hub-credit strong { color: var(--cc-ink); font-weight: 600; }
+.hub-projects { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.hub-project-card {
+  padding: 40px; background: var(--cc-grey-12);
+  border-radius: var(--cc-radius-lg); text-decoration: none;
+  transition: all var(--cc-dur-mid) var(--cc-ease-out); cursor: pointer;
+  border: 2px solid transparent; display: block;
+}
+.hub-project-card:hover { background: var(--cc-lavender); border-color: var(--cc-violet); transform: translateY(-4px); }
+.hub-project-num {
+  font-family: var(--cc-font-display);
+  font-size: 48px; font-weight: 900; color: var(--cc-violet);
+  margin-bottom: 12px; line-height: 1;
+}
+.hub-project-title {
+  font-family: var(--cc-font-display);
+  font-size: 24px; font-weight: 900; color: var(--cc-ink);
+  margin-bottom: 12px; letter-spacing: -0.01em;
+}
+.hub-project-desc { font-size: 14px; line-height: 1.6; color: var(--cc-fg-2); }
+@media (max-width: 768px) {
+  .hub-projects { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- SHARED NAV -->
+<nav class="nav">
+  <a href="#" class="nav-wordmark" onclick="goHub(event)">ZRG<span class="pp"></span></a>
+  <div class="nav-stages nav-stages-p1" id="navP1Stages">
+    <button class="nav-stage-pill" data-target="p1-stage-1">01</button>
+    <button class="nav-stage-pill" data-target="p1-stage-2">02</button>
+    <button class="nav-stage-pill" data-target="p1-stage-3">03</button>
+    <button class="nav-stage-pill" data-target="p1-stage-4">04</button>
+    <button class="nav-stage-pill" data-target="p1-stage-5">05</button>
+    <button class="nav-stage-pill" data-target="p1-stage-6">06</button>
+    <button class="nav-stage-pill" data-target="p1-stage-7">07</button>
+    <button class="nav-stage-pill" data-target="p1-stage-8">08</button>
+  </div>
+  <div class="nav-stages nav-stages-p2" id="navP2Stages">
+    <button class="nav-stage-pill" data-target="p2-stage-1">01</button>
+    <button class="nav-stage-pill" data-target="p2-stage-2">02</button>
+    <button class="nav-stage-pill" data-target="p2-stage-3">03</button>
+    <button class="nav-stage-pill" data-target="p2-stage-4">04</button>
+    <button class="nav-stage-pill" data-target="p2-stage-5">05</button>
+    <button class="nav-stage-pill" data-target="p2-stage-6">06</button>
+    <button class="nav-stage-pill" data-target="p2-stage-7">07</button>
+    <button class="nav-stage-pill" data-target="p2-stage-8">08</button>
+  </div>
+  <div class="nav-stages nav-stages-p3" id="navP3Stages">
+    <button class="nav-stage-pill" data-target="p3-stage-1">01</button>
+    <button class="nav-stage-pill" data-target="p3-stage-2">02</button>
+    <button class="nav-stage-pill" data-target="p3-stage-3">03</button>
+    <button class="nav-stage-pill" data-target="p3-stage-4">04</button>
+    <button class="nav-stage-pill" data-target="p3-stage-5">05</button>
+    <button class="nav-stage-pill" data-target="p3-stage-6">06</button>
+    <button class="nav-stage-pill" data-target="p3-stage-7">07</button>
+    <button class="nav-stage-pill" data-target="p3-stage-8">08</button>
+  </div>
+  <div class="nav-project-tabs" id="navProjectTabs">
+    <button class="nav-project-tab" data-project="1" onclick="switchProject(1, event)">01 Founders Club</button>
+    <button class="nav-project-tab" data-project="2" onclick="switchProject(2, event)">02 Gateway</button>
+    <button class="nav-project-tab" data-project="3" onclick="switchProject(3, event)">03 Keystone</button>
+  </div>
+  <div class="nav-meta">Project by Martina Vasconez</div>
+</nav>
+<div class="nav-progress"><div class="nav-progress-bar" id="progressBar"></div></div>
+
+<!-- ── HUB PAGE ── -->
+<div id="hub" class="page active">
+  <div class="hub-container">
+    <div class="hub-content">
+      <div class="eyebrow dark">Interview 3</div>
+      <h1 class="hub-title">Zero Risk<br>Growth<span class="pp"></span></h1>
+      <p class="hub-credit">GTM intelligence briefs for high-growth companies. <strong>Project by Martina Vasconez.</strong></p>
+      <div class="hub-projects">
+        <a href="#" class="hub-project-card" onclick="switchProject(1, event)">
+          <div class="hub-project-num">01</div>
+          <div class="hub-project-title">The Founders Club</div>
+          <div class="hub-project-desc">Private network for founders operating 7–9 figure businesses.</div>
+        </a>
+        <a href="#" class="hub-project-card" onclick="switchProject(2, event)">
+          <div class="hub-project-num">02</div>
+          <div class="hub-project-title">Gateway Business Brokers</div>
+          <div class="hub-project-desc">M&A firm helping Canadian business owners sell at maximum value.</div>
+        </a>
+        <a href="#" class="hub-project-card" onclick="switchProject(3, event)">
+          <div class="hub-project-num">03</div>
+          <div class="hub-project-title">Keystone Interactive</div>
+          <div class="hub-project-desc">Real-time U65 health insurance leads for agencies. Self-generated. Compliance-first.</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROJECT 01: FOUNDERS CLUB ── -->
+<div id="p1" class="page">
+<!-- HERO -->
+<section class="hero" id="p1-hero" data-screen-label="Hero">
+  <div class="hero-blob"></div>
+  <svg class="hero-burst" xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 200 200">
+    <g fill="#7C3AED"><polygon points="0,-95 10,-18 0,-12 -10,-18"></polygon><polygon points="0,95 10,18 0,12 -10,18"></polygon><polygon points="-95,0 -18,10 -12,0 -18,-10"></polygon><polygon points="95,0 18,10 12,0 18,-10"></polygon><g transform="rotate(45)"><polygon points="0,-88 9,-16 0,-10 -9,-16"></polygon><polygon points="0,88 9,16 0,10 -9,16"></polygon><polygon points="-88,0 -16,9 -10,0 -16,-9"></polygon><polygon points="88,0 16,9 10,0 16,-9"></polygon></g></g>
+    <circle cx="0" cy="0" r="22" fill="#7C3AED"></circle>
+  </svg>
+  <div class="hero-content">
+    <div class="eyebrow">Project 01 — GTM Research Brief</div>
+    <h1 class="hero-title">THE FOUNDERS<br>CLUB<span class="pp" style="width:0.35em;height:0.35em;margin-bottom:0.12em;"></span></h1>
+    <p class="hero-desc">Private invite-only network for founders operating <strong>7-, 8-, and 9-figure businesses.</strong> Founded by Chris Meade (CROSSNET) and Aaron Spivak (Hush Blankets, $48M exit).</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num" data-count="1500" data-suffix="+">0</span>
+        <span class="hero-stat-label">Members</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" data-count="20" data-suffix="+">0</span>
+        <span class="hero-stat-label">US Cities</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" data-count="150" data-suffix="+">0</span>
+        <span class="hero-stat-label">Events / Year</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" data-prefix="$" data-count="7500" data-suffix="–$10K">0</span>
+        <span class="hero-stat-label">Membership / Year</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll to explore</span><div class="hero-scroll-line"></div></div>
+</section>
+
+<!-- MARQUEE 1 -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">PRIVATE NETWORK <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">VETTED FOUNDERS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">7 TO 9-FIGURE OPERATORS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">1,500+ MEMBERS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">20+ US CITIES <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">150+ EVENTS / YEAR <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">PRIVATE NETWORK <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">VETTED FOUNDERS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">7 TO 9-FIGURE OPERATORS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">1,500+ MEMBERS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">20+ US CITIES <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">150+ EVENTS / YEAR <span class="marquee-star">✦</span></span>
+  </div>
+</div>
+
+<!-- STAGE 01: COMPANY SNAPSHOT -->
+<section class="section paper" id="p1-stage-1" data-screen-label="Stage 01 – Company Snapshot">
+  <div class="stage-number">01</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Research</div>
+      <h2 class="section-title">Company Snapshot<span class="pp"></span></h2>
+      <p class="section-sub">Foundation research on who TFC is, what they've built, and the numbers that define their model.</p>
+    </div>
+    <div class="intro-block reveal reveal-d1">
+      Private invite-only network for founders operating 7-, 8-, and 9-figure businesses. Founded by Chris Meade (CROSSNET) and Aaron Spivak (Hush Blankets, $48M exit).<br><br>
+      Started as private dinners in Miami, now 1,500+ members across 20+ US cities.
+    </div>
+    <div class="reveal reveal-d2">
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="field-col">Members</td><td>1,500+ vetted founders. Target: 2,500+ across North America.</td></tr>
+          <tr><td class="field-col">Entry Threshold</td><td>$1M+ annual revenue &nbsp;|&nbsp; $2.5M raised or exited &nbsp;|&nbsp; $3M professional services/agencies</td></tr>
+          <tr><td class="field-col">Membership Fee</td><td>$7,500 – $10,000/year (not disclosed in outreach; call required)</td></tr>
+          <tr><td class="field-col">Events</td><td>150+ per year: masterminds, retreats, dinners, speaker series, wellness activations</td></tr>
+          <tr><td class="field-col">Core Features</td><td>Monthly masterminds (8–12 founders), Annual Mexico Retreat, Founders Forum Summit, private Slack, FC App, $100K+ travel perks</td></tr>
+          <tr><td class="field-col">Chapters</td><td>20+ US cities. Expansion target: all major North American markets.</td></tr>
+          <tr><td class="field-col">Notable Guests</td><td>Mark Cuban, Kevin O'Leary, Harley Finkelstein, Anne Mahlum, Jake Karls</td></tr>
+          <tr><td class="field-col">Content</td><td>Founder2Founder Podcast &nbsp;|&nbsp; Founders Forward Newsletter</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 02: UVP -->
+<section class="section dark" id="p1-stage-2" data-screen-label="Stage 02 – Unique Value Proposition">
+  <div class="stage-number">02</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">Positioning</div>
+      <h2 class="section-title">Unique Value<br>Proposition<span class="pp"></span></h2>
+    </div>
+    <div class="uvp-grid reveal reveal-d1">
+      <div class="uvp-card span-2">
+        <div class="uvp-card-label">Core Positioning</div>
+        <div class="uvp-card-headline">A private network where proven founders stop building alone<span class="pp"></span></div>
+      </div>
+      <div class="uvp-card">
+        <div class="uvp-card-label">The Differentiator</div>
+        <div class="uvp-card-body">The <strong>Mind + Body + Business</strong> framework, wellness as a core deliverable alongside business performance.</div>
+      </div>
+      <div class="uvp-card">
+        <div class="uvp-card-label">Exclusivity</div>
+        <div class="uvp-card-body">Status among identity-forward founders.</div>
+      </div>
+      <div class="uvp-card">
+        <div class="uvp-card-label">Introductions</div>
+        <div class="uvp-card-body">Introductions are curated. One deal can cover the full membership fee.</div>
+      </div>
+      <div class="uvp-card">
+        <div class="uvp-card-label">Events</div>
+        <div class="uvp-card-body">Small masterminds, immersive retreats, wellness programming.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-strip light" aria-hidden="true">
+  <div class="marquee-track slow">
+    <span class="marquee-item">MIND + BODY + BUSINESS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">STOP BUILDING ALONE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">CURATED INTRODUCTIONS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">ONE DEAL COVERS THE FEE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">MIND + BODY + BUSINESS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">STOP BUILDING ALONE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">CURATED INTRODUCTIONS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">ONE DEAL COVERS THE FEE <span class="marquee-star">✦</span></span>
+  </div>
+</div>
+
+<!-- STAGE 03: COMPETITIVE LANDSCAPE -->
+<section class="section paper" id="p1-stage-3" data-screen-label="Stage 03 – Competitive Landscape">
+  <div class="stage-number">03</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Market Intelligence</div>
+      <h2 class="section-title">Competitive<br>Landscape<span class="pp"></span></h2>
+      <p class="section-sub">TFC competes in the $7B+ peer advisory and executive networking market. Landscape splits into legacy institutions (YPO, EO, Vistage), modern founder-first communities (Hampton), and lifestyle-hybrid clubs.</p>
+    </div>
+    <div class="reveal reveal-d1">
+      <table class="comp-table">
+        <thead>
+          <tr><th>Competitor</th><th>Revenue Req.</th><th>Price / Year</th><th>Focus</th><th>Size</th><th>TFC Advantage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name">YPO</td><td>$12M+</td><td>$20K–$30K+</td>
+            <td>Global prestige, C-suite</td><td>35,000+</td>
+            <td class="advantage">More accessible; younger members; lifestyle-integrated</td>
+          </tr>
+          <tr>
+            <td class="name">EO</td><td>$1M+</td><td>$4,500–$8,000</td>
+            <td>Peer forums, global chapters</td><td>20,000+</td>
+            <td class="advantage">More curated; tighter vetting; wellness built in</td>
+          </tr>
+          <tr>
+            <td class="name">Vistage</td><td>$5M+ typical</td><td>$20K–$28K</td>
+            <td>CEO advisory + coaching</td><td>45,000+</td>
+            <td class="advantage">Founder-focused; no exec coach overhead; peer-only model</td>
+          </tr>
+          <tr>
+            <td class="name">Hampton</td><td>$3M+</td><td>~$8,500</td>
+            <td>Tech/DTC founders</td><td>1,000+</td>
+            <td class="advantage">Broader industries; physical events; stronger lifestyle angle</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="key-box reveal reveal-d2">
+      <div class="key-box-label">Key Takeaways</div>
+      <ul>
+        <li>Hampton is the closest competitor: ~same price, invite-only, chapter cities. Hampton skews tech/DTC; TFC is broader + lifestyle. Hampton raised its bar to $3M in 2025, narrowing its TAM.</li>
+        <li>EO is the volume competitor at a lower price. More international focus.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 04: ADDRESSABLE MARKET -->
+<section class="section dark" id="p1-stage-4" data-screen-label="Stage 04 – Addressable Market">
+  <div class="stage-number">04</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">TAM Analysis</div>
+      <h2 class="section-title">Addressable<br>Market<span class="pp"></span></h2>
+      <p class="section-sub">US firms $1M+ revenue, founder-owned.</p>
+    </div>
+    <div class="tam-image-wrap reveal reveal-d1">
+      <div class="tam-image-label">TAM Filter — Apollo / Clay &nbsp;·&nbsp; Revenue &gt;$1M &nbsp;·&nbsp; Private &nbsp;·&nbsp; Founder-owned</div>
+      <img src="assets/founders_club_logo.png" alt="TAM data: 208K total, 191.5K Net New, 16.6K Saved — Revenue filter greater than $1M, Private companies" loading="lazy">
+    </div>
+    <div class="segment-grid reveal reveal-d2">
+      <div class="segment-card">
+        <div class="segment-name">DTC / eCommerce</div>
+        <div class="segment-range">$1M–$30M direct brands</div>
+        <div class="segment-why">Often solo-founders. LinkedIn-active. Respond to peer proof and exit stories. Scaling but hitting team/strategy walls. Identity tied to their brand. Builds in public.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">B2B / Agency</div>
+        <div class="segment-range">$1M–$10M services</div>
+        <div class="segment-why">Marketing, consulting, recruiting, legal, design. Relationship-driven. Hard to find peers who run service businesses at this scale.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">Tech / SaaS</div>
+        <div class="segment-range">Bootstrapped $1M+ ARR</div>
+        <div class="segment-why">Founders who care about exclusivity + private networking. Status-driven. Identity tied to being part of something rare.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">CPG / Physical Product</div>
+        <div class="segment-range">Consumer goods</div>
+        <div class="segment-why">Food, wellness, consumer goods. High affinity for lifestyle angle.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">Construction / Trades / Home Services</div>
+        <div class="segment-range">$1M–$20M operator-founders</div>
+        <div class="segment-why">High revenue, underserved.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">Post-exit Founders</div>
+        <div class="segment-range">Exited $2.5M+</div>
+        <div class="segment-why">Looking for community post-liquidity. High LTV segment. Seeks deep relationships over transactions. Bored with surface-level events. Wants to give and receive real intel. Post-exit identity gap.</div>
+      </div>
+      <div class="segment-card wide">
+        <div class="segment-name">First-Time $1M Founder</div>
+        <div class="segment-range">Just hit the threshold</div>
+        <div class="segment-why">Feels the moment but also the isolation. Feels constant impostor syndrome. Aspirational. Follows successful founders.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 05: INTENT SIGNALS -->
+<section class="section bone" id="p1-stage-5" data-screen-label="Stage 05 – Intent Signals">
+  <div class="stage-number">05</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Targeting Logic</div>
+      <h2 class="section-title">Intent Signals<br>to Target<span class="pp"></span></h2>
+    </div>
+    <div class="signals-grid reveal reveal-d1">
+      <div class="signal-card">
+        <div class="signal-name"><span class="signal-dot"></span>Funding announcement</div>
+        <div class="signal-why">The founder who just opened a new company.</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-name"><span class="signal-dot"></span>Recent exit ($2.5M–$50M)</div>
+        <div class="signal-why">Post-exit identity gap opens immediately.</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-name"><span class="signal-dot"></span>Founding Received</div>
+        <div class="signal-why">The need to meet investors' expectations.</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-name"><span class="signal-dot"></span>Rapid growth / hiring</div>
+        <div class="signal-why">Signaling rapid growth and strong investment.</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-name"><span class="signal-dot"></span>Leaving EO / YPO / Vistage</div>
+        <div class="signal-why">Active evaluation mode.</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-name"><span class="signal-dot"></span>Revenue milestone ($1M, $5M, etc.)</div>
+        <div class="signal-why">Open to growth opportunities that come with that milestone.</div>
+      </div>
+      <div class="signal-card wide">
+        <div class="signal-name"><span class="signal-dot"></span>Speaking at / attending a founder event</div>
+        <div class="signal-why">Pre-warmed. Actively investing in the network. Already open to the conversation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 06: PERSONALIZATION DATA -->
+<section class="section dark" id="p1-stage-6" data-screen-label="Stage 06 – Personalization Data Layer">
+  <div class="stage-number">06</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">Data Infrastructure</div>
+      <h2 class="section-title">How we are going<br>to find this data<span class="pp"></span></h2>
+      <p class="section-sub">aka our personalization aspect</p>
+    </div>
+    <div class="perso-block reveal reveal-d1">
+      <div class="perso-label">Trigger / Intent Signals</div>
+      <div class="perso-pills">
+        <span class="perso-pill">Funding round (Crunchbase, PitchBook, CB Insights)</span>
+        <span class="perso-pill">Inc 5000 / regional fastest-growing list appearance</span>
+        <span class="perso-pill">New product launch or major announcement</span>
+        <span class="perso-pill">Recent press mention (Claygent Google search)</span>
+        <span class="perso-pill">Company headcount growth rate (LinkedIn, Apollo) — scaling fast, probably understaffed at the leadership level</span>
+        <span class="perso-pill">Posting for multiple senior roles simultaneously — in a growth sprint</span>
+        <span class="perso-pill">Recently filled a C-suite role — team is evolving</span>
+        <span class="perso-pill">Acquisition announced</span>
+        <span class="perso-pill">Angel investor activity</span>
+      </div>
+    </div>
+    <div class="perso-block reveal reveal-d2">
+      <div class="perso-label">Email Personalization Signals</div>
+      <div class="perso-pills">
+        <span class="perso-pill">LinkedIn recent posts — Claygent summarizes last 3-5 posts, returns themes</span>
+        <span class="perso-pill">Time in current role (LinkedIn) — if 3+ years at same company, likely hitting a ceiling</span>
+        <span class="perso-pill">LinkedIn profile summary</span>
+        <span class="perso-pill">Company summary</span>
+      </div>
+    </div>
+    <div class="perso-rule reveal reveal-d3">
+      <svg class="rule-burst" xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 200 200">
+        <g fill="#7C3AED"><polygon points="0,-95 10,-18 0,-12 -10,-18"></polygon><polygon points="0,95 10,18 0,12 -10,18"></polygon><polygon points="-95,0 -18,10 -12,0 -18,-10"></polygon><polygon points="95,0 18,10 12,0 18,-10"></polygon><g transform="rotate(45)"><polygon points="0,-88 9,-16 0,-10 -9,-16"></polygon><polygon points="0,88 9,16 0,10 -9,16"></polygon><polygon points="-88,0 -16,9 -10,0 -16,-9"></polygon><polygon points="88,0 16,9 10,0 16,-9"></polygon></g></g>
+        <circle cx="0" cy="0" r="22" fill="#7C3AED"></circle>
+      </svg>
+      Every email must show you read something specific about them.
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 3 -->
+<div class="marquee-strip" style="background:var(--cc-violet);" aria-hidden="true">
+  <div class="marquee-track fast">
+    <span class="marquee-item">EVERY EMAIL MUST SHOW YOU READ SOMETHING SPECIFIC ABOUT THEM <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">HYPER-PERSONALIZATION <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">EVERY EMAIL MUST SHOW YOU READ SOMETHING SPECIFIC ABOUT THEM <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">HYPER-PERSONALIZATION <span class="marquee-star">✦</span></span>
+  </div>
+</div>
+
+<!-- STAGE 07: ICP + VALUE PROPS -->
+<section class="section paper" id="p1-stage-7" data-screen-label="Stage 07 – ICP Mapping">
+  <div class="stage-number">07</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">ICP Mapping</div>
+      <h2 class="section-title">ICP We Mapped +<br>Value Propositions<span class="pp"></span></h2>
+      <p class="section-sub">Click any ICP to reveal the value proposition.</p>
+    </div>
+    <div class="icp-list reveal reveal-d1">
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">01</span>
+            <span class="icp-name">Founder who just raised a round</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">The room that exists for this exact window. Founders who have navigated investor pressure at your stage and will tell you what it actually looks like.</div>
+            <div class="icp-detail-title">Seed, Series A, or angel round announced on Crunchbase or LinkedIn in the last 90 days</div>
+            <div class="icp-details">
+              <div class="icp-detail">New accountability they did not have before</div>
+              <div class="icp-detail">Probably hiring fast or about to</div>
+              <div class="icp-detail">Making decisions at a speed they have not experienced before</div>
+              <div class="icp-detail">The raise was the goal for a long time and now the real work starts</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">02</span>
+            <span class="icp-name">Founder actively hiring VP or C-suite for the first time</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">One conversation with someone who already made that hire and got it wrong first is worth more than any recruiter's process.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">03</span>
+            <span class="icp-name">Post-exit founder within 12 months of acquisition</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">An opportunity to connect with others where you are + business opportunities.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">04</span>
+            <span class="icp-name">Founder who just started a new company</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">The people who are building right now, same as you.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">05</span>
+            <span class="icp-name">Founder who appeared on a podcast or spoke at an event</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">The conversation you are already having publicly, in a room where it goes deeper and stays private.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">06</span>
+            <span class="icp-name">Founder 3+ years in with no recent milestone</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">A room that is still moving. New perspectives on problems that have been sitting for a while.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">07</span>
+            <span class="icp-name">Founder in a rapid growth or hiring sprint</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">The decisions are coming fast + the opportunity to talk about it.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">08</span>
+            <span class="icp-name">Founder in the wellness space or who publicly prioritizes wellness</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">A network where the business conversation and the wellness conversation are not separate things.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 08: EMAIL SEQUENCES -->
+<section class="section dark" id="p1-stage-8" data-screen-label="Stage 08 – Email Sequences">
+  <div class="stage-number">08</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">Outreach</div>
+      <h2 class="section-title">Email<br>Sequences<span class="pp"></span></h2>
+      <p class="section-sub">ICP: Founder who just raised a round</p>
+    </div>
+    <div class="reveal reveal-d1">
+      <div class="email-tabs">
+        <button class="email-tab active" onclick="switchTab(this,'tab-p1-template')">Template Version</button>
+        <button class="email-tab" onclick="switchTab(this,'tab-p1-personalized')">Personalized Version</button>
+      </div>
+      <div class="email-panels">
+        <div class="email-panel active" id="tab-p1-template">
+          <div class="email-card">
+            <div class="email-card-top">
+              <div class="email-dot" style="background:#FF5F57;"></div>
+              <div class="email-dot" style="background:#FFBD2E;"></div>
+              <div class="email-dot" style="background:#28C840;"></div>
+            </div>
+            <div class="email-body">Saw <em class="email-tag">[company]</em> just closed <em class="email-tag">[round size]</em>.
+
+The Founders Club is a private network of 1,500+ founders doing $1M to $100M. Monthly masterminds, curated introductions, and an active chapter in <em class="email-tag">[city]</em> with founders who have been exactly where you are right now.
+
+We are selective about who we invite to even have this conversation, and your name came up.
+
+Worth 15 minutes?</div>
+          </div>
+        </div>
+        <div class="email-panel" id="tab-p1-personalized">
+          <div class="email-card">
+            <div class="email-card-top">
+              <div class="email-dot" style="background:#FF5F57;"></div>
+              <div class="email-dot" style="background:#FFBD2E;"></div>
+              <div class="email-dot" style="background:#28C840;"></div>
+            </div>
+            <div class="email-body">Hi <em class="email-tag">[First name]</em>,
+
+<em class="email-tag">[Personalization: one specific non-obvious thing about what the company does or just launched, written as an observation.]</em>
+
+The Founders Club is a private network of 1,500+ founders doing $1M to $100M. Monthly masterminds, curated introductions, and an active chapter in <em class="email-tag">[city]</em> with founders who have been exactly where you are right now.
+
+Your name came up when we were thinking of our upcoming event in <em class="email-tag">[city]</em>.
+
+Worth 15 minutes to see if it is a good fit?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">ZRG<span class="pp" style="width:0.38em;height:0.38em;margin-left:4px;"></span></div>
+  <div class="footer-note">Project 01 — The Founders Club &nbsp;·&nbsp; GTM Research Brief &nbsp;·&nbsp; 2026</div>
+</footer>
+</div>
+
+<!-- ── PROJECT 02: GATEWAY BUSINESS BROKERS ── -->
+<div id="p2" class="page">
+<!-- HERO -->
+<section class="hero" id="p2-hero" data-screen-label="Hero">
+  <div class="hero-blob"></div>
+  <svg class="hero-burst" xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 200 200">
+    <g fill="#7C3AED"><polygon points="0,-95 10,-18 0,-12 -10,-18"></polygon><polygon points="0,95 10,18 0,12 -10,18"></polygon><polygon points="-95,0 -18,10 -12,0 -18,-10"></polygon><polygon points="95,0 18,10 12,0 18,-10"></polygon><g transform="rotate(45)"><polygon points="0,-88 9,-16 0,-10 -9,-16"></polygon><polygon points="0,88 9,16 0,10 -9,16"></polygon><polygon points="-88,0 -16,9 -10,0 -16,-9"></polygon><polygon points="88,0 16,9 10,0 16,-9"></polygon></g></g>
+    <circle cx="0" cy="0" r="22" fill="#7C3AED"></circle>
+  </svg>
+  <div class="hero-content">
+    <div class="eyebrow">Project 02 — GTM Research Brief</div>
+    <h1 class="hero-title">GATEWAY BUSINESS<br>BROKERS<span class="pp" style="width:0.35em;height:0.35em;margin-bottom:0.12em;"></span></h1>
+    <p class="hero-desc">Nova Scotia-based M&A firm helping established Canadian business owners sell at <strong>maximum after-tax value.</strong> Founded 2009 by Tim Blais.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">70<span style="font-size:0.8em;">%</span></span>
+        <span class="hero-stat-label">Close Rate</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">100<span style="font-size:0.8em;">%</span></span>
+        <span class="hero-stat-label">Financing Success</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">5–12<span style="font-size:0.8em;">%</span></span>
+        <span class="hero-stat-label">Commission</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">$1M–$50M</span>
+        <span class="hero-stat-label">Deal Range</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll to explore</span><div class="hero-scroll-line"></div></div>
+</section>
+
+<!-- MARQUEE 1 -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">M&A BROKERAGE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">70% CLOSE RATE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">100% FINANCING SUCCESS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">CANADIAN BUSINESS OWNERS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">TAX EXPERT ON TEAM <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">M&A BROKERAGE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">70% CLOSE RATE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">100% FINANCING SUCCESS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">CANADIAN BUSINESS OWNERS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">TAX EXPERT ON TEAM <span class="marquee-star">✦</span></span>
+  </div>
+</div>
+
+<!-- STAGE 01: COMPANY SNAPSHOT -->
+<section class="section paper" id="p2-stage-1" data-screen-label="Stage 01 – Company Snapshot">
+  <div class="stage-number">01</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Research</div>
+      <h2 class="section-title">Company Snapshot<span class="pp"></span></h2>
+      <p class="section-sub">Foundation research on who Gateway is, what they've built, and the proof points that set them apart.</p>
+    </div>
+    <div class="intro-block reveal reveal-d1">
+      Founded 2009 by Tim Blais in Halifax, Nova Scotia. Gateway Business Brokers helps established Canadian business owners sell at maximum after-tax value. The team includes a CPA and tax specialist — unique in Atlantic Canada.
+    </div>
+    <div class="reveal reveal-d2">
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="field-col">Founded</td><td>2009. Tim Blais, Halifax, Nova Scotia.</td></tr>
+          <tr><td class="field-col">Headquarters</td><td>Middle Sackville, NS. Offices nationwide. Active across all Canadian provinces.</td></tr>
+          <tr><td class="field-col">Deal Range</td><td>$1M minimum to $50M maximum revenue businesses.</td></tr>
+          <tr><td class="field-col">Fees</td><td>Commission only: 5–12% of final sale price. No upfront fees.</td></tr>
+          <tr><td class="field-col">Close Rate</td><td>70%+ (industry average: 10–20%)</td></tr>
+          <tr><td class="field-col">Financing Success</td><td>100% on qualified deals. Gateway qualifies buyers before seller engagement.</td></tr>
+          <tr><td class="field-col">Team</td><td>Tim Blais (Founder, CVB, CBI, 9x founder/acquirer). Jeremy Moule (COO, MBA, CPA). Paul MacNeil (CPA, CMA, CBV, tax expert). Jean Guy LeClerc (bilingual, NB). Licensed associates across provinces.</td></tr>
+          <tr><td class="field-col">Content</td><td>Blog on gatewaybusinessbrokers.com. Business Selling Mastery program (DIY seller partner).</td></tr>
+          <tr><td class="field-col">Lead Magnets</td><td>Free confidential Qualifier call. Value Builder Score. Business valuation tool. Business Bursary Program readiness fit.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 02: COMPETITIVE LANDSCAPE -->
+<section class="section dark" id="p2-stage-2" data-screen-label="Stage 02 – Competitive Landscape">
+  <div class="stage-number">02</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">Market Intelligence</div>
+      <h2 class="section-title">Competitive<br>Landscape<span class="pp"></span></h2>
+      <p class="section-sub">Atlantic Canada brokerage market is small and relationship-driven. Competitors: national franchises (Sunbelt, Murphy), regional independents (Muise, Atlantic M&A), DIY platforms.</p>
+    </div>
+    <div class="reveal reveal-d1">
+      <table class="comp-table">
+        <thead>
+          <tr><th>Competitor</th><th>Type</th><th>Close Rate</th><th>Key Claim</th><th>Gateway Advantage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name">Sunbelt Business Brokers</td><td>National franchise</td><td>Not disclosed</td>
+            <td>"World's largest brokerage network"</td>
+            <td class="advantage">Gateway's 70% close rate is published; Sunbelt doesn't publish because theirs wouldn't compare. Gateway has in-house tax expertise.</td>
+          </tr>
+          <tr>
+            <td class="name">Murphy Business Atlantic</td><td>National franchise</td><td>Not disclosed</td>
+            <td>"All professionals have owned a business"</td>
+            <td class="advantage">Generic national approach vs. Gateway's local depth + tax planning component.</td>
+          </tr>
+          <tr>
+            <td class="name">Muise M&A</td><td>Regional independent</td><td>Not disclosed</td>
+            <td>Operating since 1998</td>
+            <td class="advantage">Gateway's published 70% close rate + 100% financing success. Muise has no tax specialist on team.</td>
+          </tr>
+          <tr>
+            <td class="name">Atlantic M&A</td><td>Regional independent</td><td>Not disclosed</td>
+            <td>Led by a lawyer</td>
+            <td class="advantage">Smaller buyer network. Gateway's qualified buyer process is especially relevant here.</td>
+          </tr>
+          <tr>
+            <td class="name">BizBuySell / DIY platforms</td><td>DIY listing</td><td>Negligible</td>
+            <td>No commission, seller keeps proceeds</td>
+            <td class="advantage">Gateway's confidentiality management, buyer qualification, negotiation support, and tax planning. No DIY platform offers this.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="key-box reveal reveal-d2">
+      <div class="key-box-label">Key Takeaways</div>
+      <ul>
+        <li>Sunbelt and Murphy dominate by volume; they take every listing and publish no performance data.</li>
+        <li>The biggest value prop Gateway owns: the only broker in Atlantic Canada with a published 70%+ close rate, 100% financing success rate, in-house CPA and tax expert, and a guaranteed free valuation.</li>
+        <li>No competitor combines all four proof points.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-strip light" aria-hidden="true">
+  <div class="marquee-track slow">
+    <span class="marquee-item">ONLY BROKER WITH PUBLISHED 70% CLOSE RATE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">IN-HOUSE TAX EXPERT <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">100% FINANCING SUCCESS RATE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">GUARANTEED VALUATION <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">ONLY BROKER WITH PUBLISHED 70% CLOSE RATE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">IN-HOUSE TAX EXPERT <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">100% FINANCING SUCCESS RATE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">GUARANTEED VALUATION <span class="marquee-star">✦</span></span>
+  </div>
+</div>
+
+<!-- STAGE 03: WHY GATEWAY WINS -->
+<section class="section paper" id="p2-stage-3" data-screen-label="Stage 03 – Why Gateway Wins">
+  <div class="stage-number">03</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Differentiation</div>
+      <h2 class="section-title">Why Gateway<br>Wins<span class="pp"></span></h2>
+      <p class="section-sub">Every broker claims they get sellers the best price. Gateway is the only one in Atlantic Canada that backs it with documented proof points and a guarantee.</p>
+    </div>
+    <div class="advantage-grid reveal reveal-d1">
+      <div class="advantage-card">
+        <div class="advantage-label">Proof Point</div>
+        <div class="advantage-headline">70% close rate<span class="pp"></span></div>
+        <div class="advantage-body">Industry closes 1 in 10 deals. Gateway closes 7 in 10. <strong>No competitor in Atlantic Canada publishes a close rate</strong> because theirs would not hold up.</div>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-label">Proof Point</div>
+        <div class="advantage-headline">100% financing success<span class="pp"></span></div>
+        <div class="advantage-body">Gateway qualifies financing <strong>before a buyer sits across from a seller.</strong> That's why financing never falls apart.</div>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-label">Proof Point</div>
+        <div class="advantage-headline">In-house tax expert<span class="pp"></span></div>
+        <div class="advantage-body">Paul MacNeil (CPA, CMA, CBV) is on the team specifically to minimize post-sale taxation. <strong>No other Atlantic Canada broker has this built in.</strong></div>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-label">Proof Point</div>
+        <div class="advantage-headline">Guaranteed valuation<span class="pp"></span></div>
+        <div class="advantage-body">If Gateway's valuation does not deliver <strong>300%+ value vs. its cost, it is free.</strong> Seller has zero financial risk.</div>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-label">Credibility</div>
+        <div class="advantage-headline">Tim has done it<span class="pp"></span></div>
+        <div class="advantage-body">Tim has founded or acquired <strong>9 companies.</strong> He has been the seller and the buyer. That credibility is real and rare.</div>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-label">Process</div>
+        <div class="advantage-headline">Confidentiality first<span class="pp"></span></div>
+        <div class="advantage-body">Designed so employees, competitors, and suppliers do not find out until the deal is done. <strong>Critical in small Atlantic markets.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 04: TAM + SEGMENTS -->
+<section class="section dark" id="p2-stage-4" data-screen-label="Stage 04 – Addressable Market & Segments">
+  <div class="stage-number">04</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">TAM Analysis</div>
+      <h2 class="section-title">Addressable<br>Market<span class="pp"></span></h2>
+      <p class="section-sub">10,000–14,000 businesses in NS and NB generating $1M+ revenue. Baby boomer business owners (55–70) represent the largest wave of potential sellers in Canadian history.</p>
+    </div>
+    <div class="segment-grid reveal reveal-d1">
+      <div class="segment-card">
+        <div class="segment-name">Construction & Trades</div>
+        <div class="segment-range">$1M–$10M+</div>
+        <div class="segment-why">High revenue, legacy companies. Owners typically 50+ with no succession plan. Limited digital footprint. Findable through industry associations, business registries, Google map scrapes.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">Manufacturing</div>
+        <div class="segment-range">$1M–$20M</div>
+        <div class="segment-why">Tariff environment in 2025–2026 creating urgency. <strong>Highest opportunity gap right now.</strong> Gateway has a blog post specifically on this.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">Transportation & Logistics</div>
+        <div class="segment-range">$1M–$10M</div>
+        <div class="segment-why">Strong cash flow businesses, good buyer appetite. Owners are often operational and don't think about exit until forced.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">Hospitality & Tourism</div>
+        <div class="segment-range">$1M–$10M</div>
+        <div class="segment-why">Seasonal businesses with real asset value. Post-pandemic recovery created a wave of owners ready to exit.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">Healthcare & Home Care</div>
+        <div class="segment-range">$1M–$10M+</div>
+        <div class="segment-why">High-demand sector. Aging population driving buyer interest. Regulatory complexity makes a broker essential.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">Professional Services</div>
+        <div class="segment-range">$1M–$10M</div>
+        <div class="segment-why">Accounting firms, law firms, insurance agencies. Retiring principals with loyal client bases. <strong>Confidentiality is paramount.</strong></div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">Wholesale & Distribution</div>
+        <div class="segment-range">$1M–$20M</div>
+        <div class="segment-why">Relationship-dependent. Buyer pool is often strategic acquirers. Gateway's qualified-buyer process is especially relevant. Also hit by tariffs.</div>
+      </div>
+      <div class="segment-card wide">
+        <div class="segment-name">Retail & Food Service</div>
+        <div class="segment-range">$1M–$5M (Gateway's range)</div>
+        <div class="segment-why">Lower multiples but high volume. Sunbelt and Murphy dominate the micro segment. Gateway's strength is the $1M+ established business market.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 05: ICP PROFILES -->
+<section class="section paper" id="p2-stage-5" data-screen-label="Stage 05 – ICP Profiles">
+  <div class="stage-number">05</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Targeting Logic</div>
+      <h2 class="section-title">Ideal Customer<br>Profiles<span class="pp"></span></h2>
+      <p class="section-sub">Click any ICP to reveal the value proposition and lead magnet strategy.</p>
+    </div>
+    <div class="icp-list reveal reveal-d1">
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">01</span>
+            <span class="icp-name">The Retirement-Ready Owner</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">Owner-operator, 55–68 years old, has run the business 15–30 years. No succession plan. Business is both their identity and their retirement fund.</div>
+            <div class="icp-detail-title">What they fear</div>
+            <div class="icp-details">
+              <div class="icp-detail">Leaving money on the table</div>
+              <div class="icp-detail">Employees finding out before the deal closes</div>
+              <div class="icp-detail">A process that disrupts the business they've spent 20 years building</div>
+              <div class="icp-detail">Being told a number and then having it fall apart at financing</div>
+            </div>
+            <div class="icp-detail-title">Value Proposition</div>
+            <div class="icp-detail">The number you hear at close is not what you keep. It's what's left after tax. Gateway has a CPA on the team specifically to close that gap.</div>
+            <div class="icp-detail-title">Lead Magnets</div>
+            <div class="icp-detail">Free confidential Qualifier call + Value Builder Score</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">02</span>
+            <span class="icp-name">The Burned Owner</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">Has already tried to sell. Listed with another broker and had a deal fall through, or tried privately and got nowhere. Frustrated. Skeptical of brokers.</div>
+            <div class="icp-detail-title">What they fear</div>
+            <div class="icp-details">
+              <div class="icp-detail">Wasting time again</div>
+              <div class="icp-detail">Being overpromised and underdelivered</div>
+              <div class="icp-detail">Another unqualified buyer walking away at financing</div>
+            </div>
+            <div class="icp-detail-title">Value Proposition</div>
+            <div class="icp-detail">Gateway qualifies financing before the buyer sits across from the seller. That's why the financing success rate is 100%. The close rate stat is proof.</div>
+            <div class="icp-detail-title">Lead Magnets</div>
+            <div class="icp-detail">Free confidential Qualifier call + Business valuation tool</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">03</span>
+            <span class="icp-name">The Unsure Owner</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">50–58 years old. Business is doing well. Has never had a professional valuation. Curious but not urgent.</div>
+            <div class="icp-detail-title">What they fear</div>
+            <div class="icp-details">
+              <div class="icp-detail">Being pushed into something before they're ready</div>
+              <div class="icp-detail">Finding out the business is worth less than they thought</div>
+              <div class="icp-detail">Losing control of the process</div>
+            </div>
+            <div class="icp-detail-title">Value Proposition</div>
+            <div class="icp-detail">A professional valuation tells you what a qualified buyer would pay today and what two or three specific changes could add in the next 12 months. Gateway offers that conversation for free, no commitment, no upfront fees.</div>
+            <div class="icp-detail-title">Lead Magnets</div>
+            <div class="icp-detail">Free confidential Qualifier call + Business valuation tool</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">04</span>
+            <span class="icp-name">The Distressed Owner</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">Facing a specific trigger: health issue, partner dispute, key employee departure, sector disruption from tariffs or competition. Timeline is compressed.</div>
+            <div class="icp-detail-title">What they fear</div>
+            <div class="icp-details">
+              <div class="icp-detail">A slow process that eats into the time they don't have</div>
+              <div class="icp-detail">An unqualified buyer wasting time</div>
+              <div class="icp-detail">Being low-balled because the urgency is visible</div>
+            </div>
+            <div class="icp-detail-title">Value Proposition</div>
+            <div class="icp-detail">When the timeline is compressed, buyer qualification matters more than ever. Gateway qualifies financing before the first meeting. No time wasted on buyers who cannot close.</div>
+            <div class="icp-detail-title">Lead Magnets</div>
+            <div class="icp-detail">Gateway's Business Bursary Program readiness fit + Business valuation tool</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<!-- MARQUEE 3 -->
+<div class="marquee-strip light" aria-hidden="true">
+  <div class="marquee-track slow">
+    <span class="marquee-item">OWNER TENURE 15+ YEARS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">EXIT INTENT SIGNALS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">LINKEDIN SALES NAVIGATOR <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">GOOGLE MAP SCRAPE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">BIZBUY PAST LISTINGS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">OWNER TENURE 15+ YEARS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">EXIT INTENT SIGNALS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">LINKEDIN SALES NAVIGATOR <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">GOOGLE MAP SCRAPE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">BIZBUY PAST LISTINGS <span class="marquee-star">✦</span></span>
+  </div>
+</div>
+
+<!-- STAGE 06: SIGNAL MAP -->
+<section class="section paper" id="p2-stage-6" data-screen-label="Stage 06 – Signal Map">
+  <div class="stage-number">06</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Targeting Logic</div>
+      <h2 class="section-title">Signal Map<span class="pp"></span></h2>
+      <p class="section-sub">What to look for and where to find it. Three signal categories — life stage, business momentum, and exit intent.</p>
+    </div>
+    <div class="reveal reveal-d1">
+      <div class="perso-block">
+        <div class="perso-label">Life Stage &amp; Tenure Signals</div>
+        <div style="display:flex;flex-direction:column;gap:2px;background:var(--cc-border-soft);">
+          <div style="background:var(--cc-grey-12);padding:20px 28px;display:grid;grid-template-columns:1fr 2fr;gap:24px;">
+            <div style="font-size:13px;font-weight:700;color:var(--cc-ink);">Owner tenure 15+ years <span style="color:var(--cc-violet);">(LinkedIn)</span></div>
+            <div style="font-size:13px;color:var(--cc-fg-2);line-height:1.6;">Single strongest predictor of exit readiness in Atlantic Canada. Long tenure plus no obvious successor is the profile.</div>
+          </div>
+          <div style="background:var(--cc-grey-12);padding:20px 28px;display:grid;grid-template-columns:1fr 2fr;gap:24px;">
+            <div style="font-size:13px;font-weight:700;color:var(--cc-ink);">Years of experience on LinkedIn</div>
+            <div style="font-size:13px;color:var(--cc-fg-2);line-height:1.6;">20+ years suggests 50s age range — the primary buying cohort. Note: most people 50+ are not on LinkedIn.</div>
+          </div>
+        </div>
+      </div>
+      <div class="perso-block">
+        <div class="perso-label">Business Momentum Signals</div>
+        <div style="display:flex;flex-direction:column;gap:2px;background:var(--cc-border-soft);">
+          <div style="background:var(--cc-grey-12);padding:20px 28px;display:grid;grid-template-columns:1fr 2fr;gap:24px;">
+            <div style="font-size:13px;font-weight:700;color:var(--cc-ink);">Hiring a GM, COO, CEO or Ops Manager <span style="color:var(--cc-violet);">(LinkedIn, Indeed)</span></div>
+            <div style="font-size:13px;color:var(--cc-fg-2);line-height:1.6;">Owner is reducing their own operational role. Pre-sale preparation behavior in many cases.</div>
+          </div>
+          <div style="background:var(--cc-grey-12);padding:20px 28px;display:grid;grid-template-columns:1fr 2fr;gap:24px;">
+            <div style="font-size:13px;font-weight:700;color:var(--cc-ink);">Inc 5000 Canada or Atlantic Business Top 50 <span style="color:var(--cc-violet);">(Claygent)</span></div>
+            <div style="font-size:13px;color:var(--cc-fg-2);line-height:1.6;">Public validation. Owner is proud of what they've built. Natural entry point.</div>
+          </div>
+        </div>
+      </div>
+      <div class="perso-block">
+        <div class="perso-label">Exit Intent Signals</div>
+        <div style="display:flex;flex-direction:column;gap:2px;background:var(--cc-border-soft);">
+          <div style="background:var(--cc-grey-12);padding:20px 28px;display:grid;grid-template-columns:1fr 2fr;gap:24px;">
+            <div style="font-size:13px;font-weight:700;color:var(--cc-ink);">Previous listing on BizBuySell or BusinessesForSale.com <span style="color:var(--cc-violet);">(Scrape)</span></div>
+            <div style="font-size:13px;color:var(--cc-fg-2);line-height:1.6;">Has already tried to sell. Burned owner ICP. Highest urgency for the financing success rate pitch.</div>
+          </div>
+          <div style="background:var(--cc-grey-12);padding:20px 28px;display:grid;grid-template-columns:1fr 2fr;gap:24px;">
+            <div style="font-size:13px;font-weight:700;color:var(--cc-ink);">Key employee departure visible on LinkedIn</div>
+            <div style="font-size:13px;color:var(--cc-fg-2);line-height:1.6;">Operational instability. Owner may be re-evaluating.</div>
+          </div>
+          <div style="background:var(--cc-grey-12);padding:20px 28px;display:grid;grid-template-columns:1fr 2fr;gap:24px;">
+            <div style="font-size:13px;font-weight:700;color:var(--cc-ink);">Tariff or regulatory news affecting their sector</div>
+            <div style="font-size:13px;color:var(--cc-fg-2);line-height:1.6;">2025–2026 Canada-US tariff environment creating urgency in manufacturing, distribution, and import-dependent businesses.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="key-box reveal reveal-d2">
+      <div class="key-box-label">How to Find These People — Sources</div>
+      <table class="data-table">
+        <thead><tr><th>Source</th><th>What It Gives You</th></tr></thead>
+        <tbody>
+          <tr><td class="field-col" style="width:260px;">LinkedIn Sales Navigator</td><td>Owner/Founder/President title + Nova Scotia or New Brunswick + company founded 10+ years ago + 10–100 employees.</td></tr>
+          <tr><td class="field-col">Google Map Scrape</td><td>Specifically for legacy companies like manufacturing. Business name, address, phone, sometimes owner.</td></tr>
+          <tr><td class="field-col">NS &amp; NB Chamber of Commerce directories</td><td>Scrape. Public member lists with business names and owner contacts.</td></tr>
+          <tr><td class="field-col">Business Registries</td><td>Companies incorporated before 2010, still active, NS and NB registered. Corporations Canada + NS Registry of Joint Stocks.</td></tr>
+          <tr><td class="field-col">Industry association lists</td><td>NS Construction Association, NS Trucking, Canadian Manufacturers &amp; Exporters Atlantic, NS Restaurant Association. Often public or accessible.</td></tr>
+          <tr><td class="field-col">BizBuySell / BusinessesForSale.com</td><td>Past listings that went stale. Burned owner ICP. Directly addressable with the financing success rate stat.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 07: CLAY PERSONALIZATION ARCHITECTURE -->
+<section class="section dark" id="p2-stage-7" data-screen-label="Stage 07 – Clay Architecture">
+  <div class="stage-number">07</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">Data Infrastructure</div>
+      <h2 class="section-title">Clay Personalization<br>Architecture<span class="pp"></span></h2>
+      <p class="section-sub">Four Claygent columns that build the personalization layer for every email.</p>
+    </div>
+    <div class="reveal reveal-d1">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:rgba(255,255,255,0.06);">
+        <div style="background:var(--cc-ink-soft);padding:36px 40px;">
+          <div style="font-family:var(--cc-font-mono);font-size:32px;font-weight:900;color:var(--cc-violet);margin-bottom:16px;">A</div>
+          <div style="font-size:13px;font-weight:700;color:var(--cc-white);margin-bottom:10px;">Years in business</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cc-grey-55);margin-bottom:14px;">Claygent Prompt</div>
+          <div style="font-size:13px;color:var(--cc-grey-55);line-height:1.65;margin-bottom:20px;">Browse LinkedIn and the company website. How long has this owner been running this specific business? Return the founding year and years of operation.</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cc-grey-55);margin-bottom:10px;">Output Example</div>
+          <div style="font-size:14px;color:var(--cc-violet-bright);font-style:italic;line-height:1.6;border-left:2px solid var(--cc-violet);padding-left:14px;">&ldquo;Running [company] since 1998. 26 years in operation.&rdquo;</div>
+        </div>
+        <div style="background:var(--cc-ink-soft);padding:36px 40px;">
+          <div style="font-family:var(--cc-font-mono);font-size:32px;font-weight:900;color:var(--cc-violet);margin-bottom:16px;">B</div>
+          <div style="font-size:13px;font-weight:700;color:var(--cc-white);margin-bottom:10px;">What the business actually does</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cc-grey-55);margin-bottom:14px;">Claygent Prompt</div>
+          <div style="font-size:13px;color:var(--cc-grey-55);line-height:1.65;margin-bottom:20px;">Read the company website. Return one specific sentence describing what the business does, written as an observation not a description.</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cc-grey-55);margin-bottom:10px;">Output Example</div>
+          <div style="font-size:14px;color:var(--cc-violet-bright);font-style:italic;line-height:1.6;border-left:2px solid var(--cc-violet);padding-left:14px;">&ldquo;Runs a 40-truck regional freight operation serving NS and NB.&rdquo;</div>
+        </div>
+        <div style="background:var(--cc-ink-soft);padding:36px 40px;">
+          <div style="font-family:var(--cc-font-mono);font-size:32px;font-weight:900;color:var(--cc-violet);margin-bottom:16px;">C</div>
+          <div style="font-size:13px;font-weight:700;color:var(--cc-white);margin-bottom:10px;">Recent milestone or news</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cc-grey-55);margin-bottom:14px;">Claygent Prompt</div>
+          <div style="font-size:13px;color:var(--cc-grey-55);line-height:1.65;margin-bottom:20px;">Google search the owner name + company name + Nova Scotia or New Brunswick. Any awards, press, anniversaries, or announcements in the last 12 months?</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cc-grey-55);margin-bottom:10px;">Output Example</div>
+          <div style="font-size:14px;color:var(--cc-violet-bright);font-style:italic;line-height:1.6;border-left:2px solid var(--cc-violet);padding-left:14px;">&ldquo;Won the 2024 Consumer Choice Award for construction in Halifax.&rdquo;</div>
+        </div>
+        <div style="background:var(--cc-ink-soft);padding:36px 40px;">
+          <div style="font-family:var(--cc-font-mono);font-size:32px;font-weight:900;color:var(--cc-violet);margin-bottom:16px;">D</div>
+          <div style="font-size:13px;font-weight:700;color:var(--cc-white);margin-bottom:10px;">Owner LinkedIn summary</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cc-grey-55);margin-bottom:14px;">Claygent Prompt</div>
+          <div style="font-size:13px;color:var(--cc-grey-55);line-height:1.65;margin-bottom:20px;">Read the owner's LinkedIn About section and headline. How do they describe themselves and the business in their own words?</div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cc-grey-55);margin-bottom:10px;">Output Example</div>
+          <div style="font-size:14px;color:var(--cc-violet-bright);font-style:italic;line-height:1.6;border-left:2px solid var(--cc-violet);padding-left:14px;">&ldquo;Describes himself as a builder and community person. Mentions 25 years in trades.&rdquo;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 4 -->
+<div class="marquee-strip" style="background:var(--cc-violet);" aria-hidden="true">
+  <div class="marquee-track fast">
+    <span class="marquee-item">THE NUMBER YOU HEAR AT CLOSE IS NOT WHAT YOU KEEP <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">GATEWAY QUALIFIES BEFORE THE BUYER SITS DOWN <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">THE NUMBER YOU HEAR AT CLOSE IS NOT WHAT YOU KEEP <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">GATEWAY QUALIFIES BEFORE THE BUYER SITS DOWN <span class="marquee-star">✦</span></span>
+  </div>
+</div>
+
+<!-- STAGE 08: EMAIL SEQUENCES -->
+<section class="section dark" id="p2-stage-8" data-screen-label="Stage 08 – Email Sequences">
+  <div class="stage-number">08</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">Outreach</div>
+      <h2 class="section-title">Email<br>Sequences<span class="pp"></span></h2>
+      <p class="section-sub">Three email variants for the highest-converting intent signals.</p>
+    </div>
+    <div class="reveal reveal-d1">
+      <div class="email-tabs">
+        <button class="email-tab active" onclick="switchTab(this,'tab-gw-retirement')">ICP 1 — Retirement-Ready</button>
+        <button class="email-tab" onclick="switchTab(this,'tab-gw-hiring')">Signal — Hiring GM</button>
+        <button class="email-tab" onclick="switchTab(this,'tab-gw-tariff')">Signal — Tariffs</button>
+      </div>
+      <div class="email-panels">
+        <div class="email-panel active" id="tab-gw-retirement">
+          <div class="email-card">
+            <div class="email-card-top">
+              <div class="email-dot" style="background:#FF5F57;"></div>
+              <div class="email-dot" style="background:#FFBD2E;"></div>
+              <div class="email-dot" style="background:#28C840;"></div>
+            </div>
+            <div class="email-body">[X] years is a long time to build something.
+
+Gateway Business Brokers helps established business owners in <em class="email-tag">[province]</em> find out what that something is actually worth to a qualified buyer today, and what it could be worth with a few specific changes before a sale.
+
+No upfront fees. Free valuation. And the team includes a CPA and a tax specialist specifically to ensure the number you walk away with is the one that actually lands in your account.
+
+Worth a quick conversation?
+
+Tim Blais | Gateway Business Brokers
+
+PS: Our close rate is 70%. The industry average sits between 10 and 20%. We can talk about why on the call.</div>
+          </div>
+        </div>
+        <div class="email-panel" id="tab-gw-hiring">
+          <div class="email-card">
+            <div class="email-card-top">
+              <div class="email-dot" style="background:#FF5F57;"></div>
+              <div class="email-dot" style="background:#FFBD2E;"></div>
+              <div class="email-dot" style="background:#28C840;"></div>
+            </div>
+            <div class="email-body">Hi <em class="email-tag">[First name]</em>,
+
+Saw <em class="email-tag">[company name]</em> is hiring a <em class="email-tag">[job position]</em>.
+
+Bringing in someone to run operations is one of the things that makes a business significantly more attractive before a sale. If knowing what your company is worth is on your mind, Gateway's free valuation gives you the real number — what the business is worth today, and what specific moves could add to it in the next 12 months.
+
+Worth a quick call?
+
+Tim Blais | Gateway Business Brokers
+
+PS: No upfront fees ever. Commission only when the deal closes.</div>
+          </div>
+        </div>
+        <div class="email-panel" id="tab-gw-tariff">
+          <div class="email-card">
+            <div class="email-card-top">
+              <div class="email-dot" style="background:#FF5F57;"></div>
+              <div class="email-dot" style="background:#FFBD2E;"></div>
+              <div class="email-dot" style="background:#28C840;"></div>
+            </div>
+            <div class="email-body">Hi <em class="email-tag">[First name]</em>,
+
+<em class="email-tag">[Industry]</em> manufacturers in Atlantic Canada got hit with <em class="email-tag">[tariff impact]</em> this year.
+
+That changes what your business looks like to a buyer, and not always in the direction you would expect.
+
+If knowing what your company is worth is on your mind, Gateway's free valuation gives you the real number — what the business is worth today, and what specific moves could add to it in the next 12 months.
+
+No upfront fees, and the team includes a CPA and tax specialist specifically to make sure the number you walk away with is the one that actually lands in your account.
+
+Worth 15 minutes to find out where you stand?
+
+Tim Blais | Gateway Business Brokers
+
+PS: Our close rate is 70%. The industry average sits between 10 and 20%. We can talk about why on the call.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-logo">ZRG<span class="pp" style="width:0.38em;height:0.38em;margin-left:4px;"></span></div>
+  <div class="footer-note">Project 02 — Gateway Business Brokers &nbsp;·&nbsp; GTM Research Brief &nbsp;·&nbsp; 2026</div>
+</footer>
+</div>
+
+<!-- ── PROJECT 03: KEYSTONE INTERACTIVE ── -->
+<div id="p3" class="page">
+<!-- HERO -->
+<section class="hero" id="p3-hero" data-screen-label="Hero">
+  <div class="hero-blob"></div>
+  <svg class="hero-burst" xmlns="http://www.w3.org/2000/svg" viewBox="-100 -100 200 200">
+    <g fill="#7C3AED"><polygon points="0,-95 10,-18 0,-12 -10,-18"></polygon><polygon points="0,95 10,18 0,12 -10,18"></polygon><polygon points="-95,0 -18,10 -12,0 -18,-10"></polygon><polygon points="95,0 18,10 12,0 18,-10"></polygon><g transform="rotate(45)"><polygon points="0,-88 9,-16 0,-10 -9,-16"></polygon><polygon points="0,88 9,16 0,10 -9,16"></polygon><polygon points="-88,0 -16,9 -10,0 -16,-9"></polygon><polygon points="88,0 16,9 10,0 16,-9"></polygon></g></g>
+    <circle cx="0" cy="0" r="22" fill="#7C3AED"></circle>
+  </svg>
+  <div class="hero-content">
+    <div class="eyebrow">Project 03 — GTM Research Brief</div>
+    <h1 class="hero-title">KEYSTONE<br>INTERACTIVE<span class="pp" style="width:0.35em;height:0.35em;margin-bottom:0.12em;"></span></h1>
+    <p class="hero-desc">Real-time U65 health insurance leads and calls for agencies on the private market. <strong>Self-generated. Semi-exclusive. Compliance-first.</strong></p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">10<span style="font-size:0.8em;">+</span></span>
+        <span class="hero-stat-label">Years in U65</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">2×</span>
+        <span class="hero-stat-label">Max Buyers (Platinum)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">$20–$30</span>
+        <span class="hero-stat-label">Platinum Lead</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">35–40</span>
+        <span class="hero-stat-label">Leads / Agent / Day</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll to explore</span><div class="hero-scroll-line"></div></div>
+</section>
+
+<!-- MARQUEE 1 -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">U65 HEALTH INSURANCE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">SELF-GENERATED LEADS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">2-BUYER PLATINUM CAP <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">REAL-TIME INTENT <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">TCPA-COMPLIANT <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">CONVOSO + TRUALLIANT <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">U65 HEALTH INSURANCE <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">SELF-GENERATED LEADS <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">2-BUYER PLATINUM CAP <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">REAL-TIME INTENT <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">TCPA-COMPLIANT <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">CONVOSO + TRUALLIANT <span class="marquee-star">✦</span></span>
+  </div>
+</div>
+
+<!-- STAGE 01: COMPANY SNAPSHOT -->
+<section class="section paper" id="p3-stage-1" data-screen-label="Stage 01 – Company Snapshot">
+  <div class="stage-number">01</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Research</div>
+      <h2 class="section-title">Company Snapshot<span class="pp"></span></h2>
+      <p class="section-sub">Keystone generates all leads and calls from its own landing pages. In a post-MediaAlpha world, that is the differentiator.</p>
+    </div>
+    <div class="intro-block reveal reveal-d1">
+      Keystone runs websites. People land on those websites looking for health insurance. They fill out a form. That form submission is the lead. Keystone then sells that lead to an insurance agency. The agency's agents call the person and try to sell them a health plan.<br><br>
+      The U65 lead category shifted structurally in late 2025. MediaAlpha's $145M FTC settlement broke the aggregator model. Keystone's owned-source model is now a compliance advantage.
+    </div>
+    <div class="reveal reveal-d2">
+      <table class="data-table">
+        <thead><tr><th>Field</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="field-col">Source Model</td><td>Self-generated. All traffic from Keystone-owned landing pages. No resale chain. No aggregation.</td></tr>
+          <tr><td class="field-col">Lead Distribution</td><td>Platinum: two buyers maximum (95% of volume). Shared: four buyers maximum (5% of volume).</td></tr>
+          <tr><td class="field-col">Pricing — Data</td><td>Platinum: $20–$30 per lead, real-time bid. Shared: $10–$15 per lead, real-time bid.</td></tr>
+          <tr><td class="field-col">Pricing — Calls</td><td>Inbound calls: $90 (data buyers only, 10-second buffer). Live transfers: bid system, $85 minimum, 30-second buffer.</td></tr>
+          <tr><td class="field-col">Terms</td><td>Pay as you go. No term commitments. Buyer sets max bid.</td></tr>
+          <tr><td class="field-col">Ecosystem</td><td>Convoso (dialer) + TruAlliant (fronters) — both pre-wired into the buyer experience.</td></tr>
+          <tr><td class="field-col">Tools</td><td>Ride the Wave (auto-bidder on Platinum). KeyStats (real-time CPA + premium dashboard). Keystone BidBot (bid guidance).</td></tr>
+          <tr><td class="field-col">Buyer Fit</td><td>U65 agencies selling private market plans: STM, limited medical, fixed indemnity, off-exchange ACA. Senior and Medicare agencies are out of scope.</td></tr>
+          <tr><td class="field-col">Premium Range</td><td>Buyers saw average premiums of $370–$410 per sale in Q1–Q2 2025. Higher bundle percentage than market average.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 02: COMPETITIVE LANDSCAPE -->
+<section class="section dark" id="p3-stage-2" data-screen-label="Stage 02 – Competitive Landscape">
+  <div class="stage-number">02</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">Market Intelligence</div>
+      <h2 class="section-title">Competitive<br>Landscape<span class="pp"></span></h2>
+      <p class="section-sub">The aggregator model that dominated U65 supply for a decade is under regulatory pressure. Three structural shifts in 2025–2026 changed the competitive map.</p>
+    </div>
+    <div class="reveal reveal-d1">
+      <table class="comp-table">
+        <thead>
+          <tr><th>Competitor</th><th>Type</th><th>Key Claim</th><th>Keystone Advantage</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name">MediaAlpha (QuoteLab)</td><td>Aggregator marketplace</td>
+            <td>Largest U65 lead inventory. ~119M leads in 2024.</td>
+            <td class="advantage">$145M FTC settlement Aug 2025. Leads aggregated and multi-distributed. Consent chain untraceable. Compliance liability.</td>
+          </tr>
+          <tr>
+            <td class="name">QuoteWizard (LendingTree)</td><td>Multi-line aggregator</td>
+            <td>High volume, search-driven traffic.</td>
+            <td class="advantage">Shared with up to 4 agents. Generalist (Medicare, Auto). Volume over contact rate. State mini-TCPA laws make the 5th call a liability.</td>
+          </tr>
+          <tr>
+            <td class="name">NextGen Leads</td><td>Real-time bid marketplace</td>
+            <td>Self-serve bidding, exclusive + shared, no contract.</td>
+            <td class="advantage">Generalist (Medicare, Auto). No dialer or fronter ecosystem. No proprietary tools. Keystone's closest competitor — but U65-only focus separates them.</td>
+          </tr>
+          <tr>
+            <td class="name">Datalot (Centerfield)</td><td>Live-call platform</td>
+            <td>Pre-qualified warm call transfers.</td>
+            <td class="advantage">Calls only. No data feed. No buyer-side tools or partnerships.</td>
+          </tr>
+          <tr>
+            <td class="name">BrokerCalls</td><td>Pay-per-call</td>
+            <td>TCPA-compliant inbound calls.</td>
+            <td class="advantage">Calls only. No data. No buyer stack.</td>
+          </tr>
+          <tr>
+            <td class="name">The Leads Warehouse</td><td>Aged + real-time hybrid</td>
+            <td>20+ years. Real-time and aged inventory.</td>
+            <td class="advantage">Aged data is core product. Lower intent. Less U65-specific.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="key-box reveal reveal-d2">
+      <div class="key-box-label">Three shifts that matter in 2025–2026</div>
+      <ul>
+        <li>MediaAlpha's $145M settlement means buyers now have a compliance reason to ask about consent provenance. Keystone can produce the landing page, form, timestamp, and source URL for every lead.</li>
+        <li>QuoteWizard's 4-buyer share model is now a liability. State mini-TCPA laws mean the fifth call to the same consumer is exposure.</li>
+        <li>NextGen is the closest direct competitor. Keystone's separation: U65-only focus, Convoso and TruAlliant pre-wired, proprietary tools (Ride the Wave, KeyStats, BidBot). Only one in the market to offer this all in one.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-strip light" aria-hidden="true">
+  <div class="marquee-track slow">
+    <span class="marquee-item">OWNED LANDING PAGES. TRACEABLE CONSENT. <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">TWO-BUYER CAP ON PLATINUM <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">CONVOSO + TRUALLIANT PRE-WIRED <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">PAY AS YOU GO <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">OWNED LANDING PAGES. TRACEABLE CONSENT. <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">TWO-BUYER CAP ON PLATINUM <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">CONVOSO + TRUALLIANT PRE-WIRED <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">PAY AS YOU GO <span class="marquee-star">✦</span></span>
+  </div>
+</div>
+
+<!-- STAGE 03: WHY KEYSTONE WINS -->
+<section class="section paper" id="p3-stage-3" data-screen-label="Stage 03 – Why Keystone Wins">
+  <div class="stage-number">03</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Differentiation</div>
+      <h2 class="section-title">Why Keystone<br>Wins<span class="pp"></span></h2>
+      <p class="section-sub">Five structural advantages. Not pitch language — observable differences in product architecture that translate directly to buyer outcomes.</p>
+    </div>
+    <div class="advantage-grid reveal reveal-d1">
+      <div class="advantage-card">
+        <div class="advantage-label">Compliance</div>
+        <div class="advantage-headline">Owned landing pages<span class="pp"></span></div>
+        <div class="advantage-body">Every lead has a traceable Keystone form, a consent record, a timestamp, and a source URL. <strong>Producible on request.</strong> No aggregation chain. No consent ambiguity.</div>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-label">Lead Quality</div>
+        <div class="advantage-headline">Two-buyer cap on Platinum<span class="pp"></span></div>
+        <div class="advantage-body">The agent calls someone who has been contacted <strong>at most once before.</strong> 95% of Keystone volume is Platinum. Contact rate holds.</div>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-label">Stack</div>
+        <div class="advantage-headline">Convoso + TruAlliant pre-wired<span class="pp"></span></div>
+        <div class="advantage-body">Dialer and front-end layer are already connected. <strong>You don't need to build the stack.</strong> Calls scale with data spend from one vendor.</div>
+      </div>
+      <div class="advantage-card">
+        <div class="advantage-label">Automation</div>
+        <div class="advantage-headline">Ride the Wave auto-bidder<span class="pp"></span></div>
+        <div class="advantage-body">Buyer sets a max bid once. No manual bid desk. <strong>Full spend control without a full-time bidding operation.</strong></div>
+      </div>
+      <div class="advantage-card span-2">
+        <div class="advantage-label">Visibility</div>
+        <div class="advantage-headline">KeyStats real-time CPA dashboard<span class="pp"></span></div>
+        <div class="advantage-body">Per-day cost per acquisition without pulling from Convoso. <strong>Unit economics visible in real time.</strong> No spreadsheet reconciliation at end of week.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 04: ADDRESSABLE MARKET -->
+<section class="section dark" id="p3-stage-4" data-screen-label="Stage 04 – Addressable Market">
+  <div class="stage-number">04</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">TAM Analysis</div>
+      <h2 class="section-title">Addressable<br>Market<span class="pp"></span></h2>
+      <p class="section-sub">~15M Americans on individual private health insurance off the ACA Marketplace. Keystone operates entirely outside the ACA marketplace.</p>
+    </div>
+    <div class="segment-grid reveal reveal-d1">
+      <div class="segment-card">
+        <div class="segment-name">Independent U65 Agencies</div>
+        <div class="segment-range">5–50 agents</div>
+        <div class="segment-why">Buying from aggregators today. Experience lead quality fatigue. Owner has cycled through 3–4 vendors. High frustration = high openness.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">U65 Call Centers</div>
+        <div class="segment-range">30–200+ agents</div>
+        <div class="segment-why">Sophisticated buyers. Need unit economics that hold at scale. Per-agent CPA is the metric. Compliance liability grows with headcount.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">Captive Producers Going Independent</div>
+        <div class="segment-range">Breaking away</div>
+        <div class="segment-why">Lost the company-funded lead supply. Need a vendor from day one. Pay-as-you-go with no minimums fits this profile exactly.</div>
+      </div>
+      <div class="segment-card">
+        <div class="segment-name">OOEP-Active Agencies</div>
+        <div class="segment-range">STM, limited med, fixed indemnity</div>
+        <div class="segment-why">Sell year-round. Lead supply tightens Feb–Oct with most vendors. Keystone generates U65 through OOEP because its buyers sell private market plans every month.</div>
+      </div>
+      <div class="segment-card wide">
+        <div class="segment-name">TCPA-Aware Agencies</div>
+        <div class="segment-range">Compliance-first buyers</div>
+        <div class="segment-why">Hired a compliance director or seen a peer face exposure. Need vendors that can document consent back while keeping lead quality high. One bad campaign creates eight-figure exposure. MediaAlpha's settlement made this ICP real for the entire market.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 05: ICP PROFILES -->
+<section class="section paper" id="p3-stage-5" data-screen-label="Stage 05 – ICP Profiles">
+  <div class="stage-number">05</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Targeting Logic</div>
+      <h2 class="section-title">Ideal Customer<br>Profiles<span class="pp"></span></h2>
+      <p class="section-sub">Four ICPs inside the U65 agency buyer pool. Each is defined by what they are living right now.</p>
+    </div>
+    <div class="icp-list reveal reveal-d1">
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">01</span>
+            <span class="icp-name">Lead-Quality-Frustrated Independent Agency</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">Independent U65 agency. 5–30 agents. STM, limited medical, fixed indemnity, off-exchange ACA. Buying from aggregators. Contact rates declining. Agents complaining. Owner has cycled through 3–4 vendors.</div>
+            <div class="icp-detail-title">What they fear</div>
+            <div class="icp-details">
+              <div class="icp-detail">Burning another month of agent productivity on a vendor that doesn't hold</div>
+              <div class="icp-detail">Long-term contracts</div>
+              <div class="icp-detail">Low contact rates eroding agent morale</div>
+              <div class="icp-detail">Compliance exposure from aggregated leads</div>
+            </div>
+            <div class="icp-detail-title">Value Proposition</div>
+            <div class="icp-detail">When the same lead goes to four to six agencies, the contact rate problem is structural. Keystone Platinum caps at two buyers. Pay as you go.</div>
+            <div class="icp-detail-title">Lead Magnet</div>
+            <div class="icp-detail">Case study PDF — buyer dropped CPA from $540 to $440, lifted sales 25% in one quarter. + 30-min strategy call.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">02</span>
+            <span class="icp-name">Scaling U65 Call Center</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">30–200+ agents. Convoso or peer enterprise dialer in place. Building per-agent economics that hold at scale. Unit cost needs to work at 100 agents.</div>
+            <div class="icp-detail-title">What they fear</div>
+            <div class="icp-details">
+              <div class="icp-detail">Lead supply that does not scale with headcount</div>
+              <div class="icp-detail">Compliance liability from sources that cannot be audited</div>
+              <div class="icp-detail">Manual bid desks eating into operational bandwidth</div>
+            </div>
+            <div class="icp-detail-title">Value Proposition</div>
+            <div class="icp-detail">At 30+ agents the bid desk becomes a full-time job. Ride the Wave auto-bids on Platinum in real time. KeyStats shows per-day CPA without pulling from Convoso. Convoso and TruAlliant pre-wired.</div>
+            <div class="icp-detail-title">Lead Magnet</div>
+            <div class="icp-detail">Best Practices PDF + KeyStats walkthrough.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">03</span>
+            <span class="icp-name">TCPA-Aware Agency</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">15–100 agents. Owner, GC, or compliance officer has seen TCPA enforcement up close. Aware that one bad campaign creates eight-figure exposure. Buying from aggregators with growing concern about consent provenance.</div>
+            <div class="icp-detail-title">What they fear</div>
+            <div class="icp-details">
+              <div class="icp-detail">A class action from leads bought in good faith from a vendor that cannot produce the consent record</div>
+              <div class="icp-detail">Regulatory scrutiny post-MediaAlpha settlement</div>
+            </div>
+            <div class="icp-detail-title">Value Proposition</div>
+            <div class="icp-detail">After the August 2025 FTC settlement, the question buyers ask has changed. Every Keystone lead: landing page, form, consent language, timestamp, source URL — in one place, producible on request.</div>
+            <div class="icp-detail-title">Lead Magnet</div>
+            <div class="icp-detail">30-minute provenance walkthrough + lead quality case study.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="icp-item">
+        <div class="icp-trigger" onclick="toggleICP(this)">
+          <div class="icp-trigger-left">
+            <span class="icp-num">04</span>
+            <span class="icp-name">OOEP-Active Agency</span>
+          </div>
+          <div class="icp-toggle">+</div>
+        </div>
+        <div class="icp-body">
+          <div class="icp-body-inner">
+            <div class="icp-vp">Sells STM, limited medical, fixed indemnity year-round. Runs Feb–Oct as active sales months. Current vendors ramp down after OEP closes in January.</div>
+            <div class="icp-detail-title">What they fear</div>
+            <div class="icp-details">
+              <div class="icp-detail">Agent benching during slow months because supply dried up</div>
+              <div class="icp-detail">CPA growing when supply tightens Feb–Oct</div>
+            </div>
+            <div class="icp-detail-title">Value Proposition</div>
+            <div class="icp-detail">Keystone generates U65 through OOEP because the buyer base sells private market plans year-round. The ad spend keeps running in February. Landing pages are live in August. Supply does not wind down because buyers do not wind down.</div>
+            <div class="icp-detail-title">Lead Magnet</div>
+            <div class="icp-detail">Sample test campaign + strategy call.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 06: SIGNAL MAP -->
+<section class="section dark" id="p3-stage-6" data-screen-label="Stage 06 – Signal Map">
+  <div class="stage-number">06</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">Targeting Logic</div>
+      <h2 class="section-title">Signal Map<span class="pp"></span></h2>
+      <p class="section-sub">Every signal below is observable from existing tools. The signal category tells us which ICP the agency belongs to and which value proposition is relevant.</p>
+    </div>
+    <div class="reveal reveal-d1">
+      <table class="data-table">
+        <thead><tr><th>Signal</th><th>Source</th><th>ICP</th><th>Why It Converts</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;color:var(--cc-white);font-size:13px;">Active hiring posts for licensed health agents</td>
+            <td style="font-size:12px;color:var(--cc-grey-55);">Indeed / LinkedIn Sales Nav</td>
+            <td><span style="color:var(--cc-violet-bright);font-size:11px;font-weight:700;font-family:var(--cc-font-mono);">ICP 1 or 2</span></td>
+            <td style="font-size:13px;color:var(--cc-grey-40);">Confirms U65 sales operation. Volume of posts signals scale.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--cc-white);font-size:13px;">Job post mentions Freedom Life, Pivot Health, National General, STM, limited medical</td>
+            <td style="font-size:12px;color:var(--cc-grey-55);">Indeed</td>
+            <td><span style="color:var(--cc-violet-bright);font-size:11px;font-weight:700;font-family:var(--cc-font-mono);">ICP 1 + 4</span></td>
+            <td style="font-size:13px;color:var(--cc-grey-40);">Confirms private market product fit. Highest-conversion hiring signal.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--cc-white);font-size:13px;">Hiring in February through October (outside OEP)</td>
+            <td style="font-size:12px;color:var(--cc-grey-55);">Indeed / LinkedIn</td>
+            <td><span style="color:var(--cc-violet-bright);font-size:11px;font-weight:700;font-family:var(--cc-font-mono);">ICP 4</span></td>
+            <td style="font-size:13px;color:var(--cc-grey-40);">Year-round selling model confirmed. OOEP supply is the natural conversation.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--cc-white);font-size:13px;">Convoso named on website, careers page, or job post</td>
+            <td style="font-size:12px;color:var(--cc-grey-55);">BuiltWith / site review</td>
+            <td><span style="color:var(--cc-violet-bright);font-size:11px;font-weight:700;font-family:var(--cc-font-mono);">ICP 2</span></td>
+            <td style="font-size:13px;color:var(--cc-grey-40);">Dialer in place. Keystone slots directly on top. Pre-wired partnership.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--cc-white);font-size:13px;">TruAlliant, HealthSherpa, Connecture, AgentMethods mentioned</td>
+            <td style="font-size:12px;color:var(--cc-grey-55);">BuiltWith / site review</td>
+            <td><span style="color:var(--cc-violet-bright);font-size:11px;font-weight:700;font-family:var(--cc-font-mono);">ICP 2</span></td>
+            <td style="font-size:13px;color:var(--cc-grey-40);">Confirms U65 workflow and scale.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--cc-white);font-size:13px;">Aggregator logo or partner badge on agency website</td>
+            <td style="font-size:12px;color:var(--cc-grey-55);">Site review</td>
+            <td><span style="color:var(--cc-violet-bright);font-size:11px;font-weight:700;font-family:var(--cc-font-mono);">ICP 1</span></td>
+            <td style="font-size:13px;color:var(--cc-grey-40);">Confirms current vendor. Opens comparison conversation.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--cc-white);font-size:13px;">Hiring compliance director or GC with TCPA focus</td>
+            <td style="font-size:12px;color:var(--cc-grey-55);">Indeed / LinkedIn</td>
+            <td><span style="color:var(--cc-violet-bright);font-size:11px;font-weight:700;font-family:var(--cc-font-mono);">ICP 3</span></td>
+            <td style="font-size:13px;color:var(--cc-grey-40);">TCPA compliance is a board-level concern. Highest-intent ICP 3 signal.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--cc-white);font-size:13px;">PACER filing naming the agency in a TCPA class action</td>
+            <td style="font-size:12px;color:var(--cc-grey-55);">PACER</td>
+            <td><span style="color:var(--cc-violet-bright);font-size:11px;font-weight:700;font-family:var(--cc-font-mono);">ICP 3</span></td>
+            <td style="font-size:13px;color:var(--cc-grey-40);">Direct exposure. They need clean leads but will be cautious.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--cc-white);font-size:13px;">Private market carrier appointments on website</td>
+            <td style="font-size:12px;color:var(--cc-grey-55);">Site review</td>
+            <td><span style="color:var(--cc-violet-bright);font-size:11px;font-weight:700;font-family:var(--cc-font-mono);">ICP 4</span></td>
+            <td style="font-size:13px;color:var(--cc-grey-40);">Freedom Life, Pivot Health, Manhattan Life, National General A&H. Year-round product confirmed. OOEP supply is the natural conversation.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--cc-white);font-size:13px;">Inc 5000 listing or Insurance Business America award</td>
+            <td style="font-size:12px;color:var(--cc-grey-55);">Claygent Google search</td>
+            <td><span style="color:var(--cc-violet-bright);font-size:11px;font-weight:700;font-family:var(--cc-font-mono);">ICP 2</span></td>
+            <td style="font-size:13px;color:var(--cc-grey-40);">Growth trajectory. Supply needs to scale with the operation.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 07: CLAY PERSONALIZATION ARCHITECTURE -->
+<section class="section paper" id="p3-stage-7" data-screen-label="Stage 07 – Clay Architecture">
+  <div class="stage-number">07</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow dark">Data Infrastructure</div>
+      <h2 class="section-title">Clay Personalization<br>Architecture<span class="pp"></span></h2>
+      <p class="section-sub">Six columns. Column F is the email opening line, synthesized from A through E. No email goes out without at least one confirmed signal. The opening line names something specific Clay found — never a category description.</p>
+    </div>
+    <div class="reveal reveal-d1">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--cc-border-soft);">
+        <div style="background:var(--cc-grey-12);padding:32px 28px;">
+          <div style="font-family:var(--cc-font-mono);font-size:28px;font-weight:900;color:var(--cc-violet);margin-bottom:12px;">A</div>
+          <div style="font-size:13px;font-weight:700;color:var(--cc-ink);margin-bottom:8px;">Years operating</div>
+          <div style="font-size:12px;color:var(--cc-fg-2);line-height:1.65;margin-bottom:16px;">Founding year + tenure in years. Confirms they have the track record.</div>
+          <div style="font-size:13px;color:var(--cc-violet);font-style:italic;line-height:1.5;border-left:2px solid var(--cc-violet);padding-left:12px;">"Founded 2016. Eight years in business."</div>
+        </div>
+        <div style="background:var(--cc-grey-12);padding:32px 28px;">
+          <div style="font-family:var(--cc-font-mono);font-size:28px;font-weight:900;color:var(--cc-violet);margin-bottom:12px;">B</div>
+          <div style="font-size:13px;font-weight:700;color:var(--cc-ink);margin-bottom:8px;">Agent count</div>
+          <div style="font-size:12px;color:var(--cc-fg-2);line-height:1.65;margin-bottom:16px;">Current headcount estimate. Confirms they have volume to need scale.</div>
+          <div style="font-size:13px;color:var(--cc-violet);font-style:italic;line-height:1.5;border-left:2px solid var(--cc-violet);padding-left:12px;">"~28 agents based on LinkedIn + 3 active job posts."</div>
+        </div>
+        <div style="background:var(--cc-grey-12);padding:32px 28px;">
+          <div style="font-family:var(--cc-font-mono);font-size:28px;font-weight:900;color:var(--cc-violet);margin-bottom:12px;">C</div>
+          <div style="font-size:13px;font-weight:700;color:var(--cc-ink);margin-bottom:8px;">Carrier mix</div>
+          <div style="font-size:12px;color:var(--cc-fg-2);line-height:1.65;margin-bottom:16px;">Carrier names + product categories. Confirms ICP fit.</div>
+          <div style="font-size:13px;color:var(--cc-violet);font-style:italic;line-height:1.5;border-left:2px solid var(--cc-violet);padding-left:12px;">"Freedom Life STM, Pivot Health limited medical. No ACA marketplace products visible."</div>
+        </div>
+        <div style="background:var(--cc-grey-12);padding:32px 28px;">
+          <div style="font-family:var(--cc-font-mono);font-size:28px;font-weight:900;color:var(--cc-violet);margin-bottom:12px;">D</div>
+          <div style="font-size:13px;font-weight:700;color:var(--cc-ink);margin-bottom:8px;">Tech stack</div>
+          <div style="font-size:12px;color:var(--cc-fg-2);line-height:1.65;margin-bottom:16px;">Dialer, CRM, or platform indicators. Harder to get but confirms they need calling lists.</div>
+          <div style="font-size:13px;color:var(--cc-violet);font-style:italic;line-height:1.5;border-left:2px solid var(--cc-violet);padding-left:12px;">"Convoso listed under 'Tools We Use' on careers page."</div>
+        </div>
+        <div style="background:var(--cc-grey-12);padding:32px 28px;">
+          <div style="font-family:var(--cc-font-mono);font-size:28px;font-weight:900;color:var(--cc-violet);margin-bottom:12px;">E</div>
+          <div style="font-size:13px;font-weight:700;color:var(--cc-ink);margin-bottom:8px;">Recent signal</div>
+          <div style="font-size:12px;color:var(--cc-fg-2);line-height:1.65;margin-bottom:16px;">One specific recent observable fact: growth, press, event, or intent signal.</div>
+          <div style="font-size:13px;color:var(--cc-violet);font-style:italic;line-height:1.5;border-left:2px solid var(--cc-violet);padding-left:12px;">"Owner posted on LinkedIn 4 days ago about contact rates dropping since January. 47 likes."</div>
+        </div>
+        <div style="background:var(--cc-ink);padding:32px 28px;">
+          <div style="font-family:var(--cc-font-mono);font-size:28px;font-weight:900;color:var(--cc-violet);margin-bottom:12px;">F</div>
+          <div style="font-size:13px;font-weight:700;color:var(--cc-white);margin-bottom:8px;">Email opening line</div>
+          <div style="font-size:12px;color:var(--cc-grey-55);line-height:1.65;margin-bottom:16px;">Synthesized from A–E. Names something specific. Never a category description.</div>
+          <div style="font-size:13px;color:var(--cc-violet-bright);font-style:italic;line-height:1.5;border-left:2px solid var(--cc-violet);padding-left:12px;">"Saw you posted about contact rates dropping since January — that's almost always a lead distribution problem."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 3 -->
+<div class="marquee-strip" style="background:var(--cc-violet);" aria-hidden="true">
+  <div class="marquee-track fast">
+    <span class="marquee-item">CPA FROM $540 TO $440. SALES UP 25% IN ONE QUARTER. <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">THE CONTACT RATE PROBLEM IS STRUCTURAL <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">CPA FROM $540 TO $440. SALES UP 25% IN ONE QUARTER. <span class="marquee-star">✦</span></span>
+    <span class="marquee-item">THE CONTACT RATE PROBLEM IS STRUCTURAL <span class="marquee-star">✦</span></span>
+  </div>
+</div>
+
+<!-- STAGE 08: VALUE PROPS + EMAILS -->
+<section class="section dark" id="p3-stage-8" data-screen-label="Stage 08 – Value Props + Emails">
+  <div class="stage-number">08</div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow">Outreach</div>
+      <h2 class="section-title">Value Props +<br>Email Sequences<span class="pp"></span></h2>
+      <p class="section-sub">Three email variants — each tied to a specific ICP and intent signal.</p>
+    </div>
+    <div class="reveal reveal-d1">
+      <div class="email-tabs">
+        <button class="email-tab active" onclick="switchTab(this,'tab-p3-ks-ooep')">ICP 4 — OOEP + Hiring</button>
+        <button class="email-tab" onclick="switchTab(this,'tab-p3-ks-icp1')">ICP 1 — Hiring Signal</button>
+        <button class="email-tab" onclick="switchTab(this,'tab-p3-ks-icp2')">ICP 2 — General</button>
+      </div>
+      <div class="email-panels">
+        <div class="email-panel active" id="tab-p3-ks-ooep">
+          <div class="email-card">
+            <div class="email-card-top">
+              <div class="email-dot" style="background:#FF5F57;"></div>
+              <div class="email-dot" style="background:#FFBD2E;"></div>
+              <div class="email-dot" style="background:#28C840;"></div>
+            </div>
+            <div class="email-body">Hey <em class="email-tag">{{FirstName}}</em>,
+
+Saw <em class="email-tag">{{Company}}</em> is hiring for a <em class="email-tag">{{job_position}}</em> role in <em class="email-tag">{{job_location}}</em>.
+
+Since we're outside Open Enrollment, your team is usually still actively selling private-market U65 products and needs consistent lead flow through these months.
+
+Keystone generates real-time U65 leads year-round from owned landing pages. Our leads are capped at 2 buyers per lead, and each lead includes a traceable form and a consent record. Plus, you set your own budget to avoid overexpending.
+
+Interested in a quick chat?
+
+P.S. One Keystone buyer dropped CPA from $540 to $440 and lifted sales 25% in one quarter.</div>
+          </div>
+        </div>
+        <div class="email-panel" id="tab-p3-ks-icp1">
+          <div class="email-card">
+            <div class="email-card-top">
+              <div class="email-dot" style="background:#FF5F57;"></div>
+              <div class="email-dot" style="background:#FFBD2E;"></div>
+              <div class="email-dot" style="background:#28C840;"></div>
+            </div>
+            <div class="email-body">Hey <em class="email-tag">{{FirstName}}</em>,
+
+Saw <em class="email-tag">{{Company}}</em> is hiring for a <em class="email-tag">{{job_position}}</em> role.
+
+Your lead source matters more than any agent on call. If the same lead is being sold to four or five agencies, new reps burn time chasing people who have already been called all day.
+
+Our Platinum U65 leads are capped at 2 buyers. They're real-time, generated from Keystone-owned landing pages, and sold pay-as-you-go. Plus, you have total control over how much you spend.
+
+Interested in a quick demo?
+
+P.S. One Keystone buyer dropped CPA from $540 to $440 and lifted sales 25% in a quarter.</div>
+          </div>
+        </div>
+        <div class="email-panel" id="tab-p3-ks-icp2">
+          <div class="email-card">
+            <div class="email-card-top">
+              <div class="email-dot" style="background:#FF5F57;"></div>
+              <div class="email-dot" style="background:#FFBD2E;"></div>
+              <div class="email-dot" style="background:#28C840;"></div>
+            </div>
+            <div class="email-body">Hey <em class="email-tag">{{FirstName}}</em>,
+
+Thought Keystone might be relevant if you're testing U65 sources this quarter.
+
+We help U65 call centers get more real-time health insurance conversations from people actively looking for <em class="email-tag">(specific packages they are selling)</em>. Leads are capped at 2 buyers, high-intent, compliant, and you set your own budget.
+
+You can start with a small test against your current lead mix and judge it on contact rate, CPA, and agent feedback before scaling anything.
+
+Worth a quick demo?
+
+P.S. One Keystone buyer cut CPA from $540 to $440 and lifted sales 25% in a quarter.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">ZRG<span class="pp" style="width:0.38em;height:0.38em;margin-left:4px;"></span></div>
+  <div class="footer-note">Project 03 — Keystone Interactive &nbsp;·&nbsp; GTM Research Brief &nbsp;·&nbsp; 2026</div>
+</footer>
+</div>
+
+<script>
+// ── PROJECT SWITCHING
+const projectTitles = { 1: 'The Founders Club', 2: 'Gateway Business Brokers', 3: 'Keystone Interactive' };
+let currentProject = 0;
+
+function switchProject(num, event) {
+  if (event) event.preventDefault();
+  currentProject = num;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(num === 0 ? 'hub' : 'p' + num).classList.add('active');
+  const tabs = document.getElementById('navProjectTabs');
+  const p1nav = document.getElementById('navP1Stages');
+  const p2nav = document.getElementById('navP2Stages');
+  const p3nav = document.getElementById('navP3Stages');
+  if (num === 0) {
+    tabs.classList.remove('visible');
+    p1nav.classList.remove('visible');
+    p2nav.classList.remove('visible');
+    if (p3nav) p3nav.classList.remove('visible');
+  } else {
+    tabs.classList.add('visible');
+    tabs.querySelectorAll('.nav-project-tab').forEach(t => {
+      t.classList.toggle('active', +t.dataset.project === num);
+    });
+    p1nav.classList.toggle('visible', num === 1);
+    p2nav.classList.toggle('visible', num === 2);
+    if (p3nav) p3nav.classList.toggle('visible', num === 3);
+  }
+  window.scrollTo({ top: 0 });
+  initReveals();
+  initCounters();
+}
+
+function goHub(event) {
+  event.preventDefault();
+  switchProject(0);
+}
+
+// ── PROGRESS BAR
+const bar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+  bar.style.width = Math.min(pct, 100) + '%';
+});
+
+// ── NAV STAGE PILLS
+document.querySelectorAll('.nav-stage-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const target = document.getElementById(pill.dataset.target);
+    if (target) window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+  });
+});
+
+// Active pill tracking
+function updateActivePill() {
+  const prefix = currentProject === 1 ? 'p1-stage-' : currentProject === 2 ? 'p2-stage-' : null;
+  if (!prefix) return;
+  const stageEls = document.querySelectorAll('[id^="' + prefix + '"]');
+  const pills = document.querySelectorAll('.nav-stage-pill');
+  let activePill = null;
+  stageEls.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top <= 120) activePill = s.id;
+  });
+  pills.forEach(p => p.classList.toggle('active', p.dataset.target === activePill));
+}
+window.addEventListener('scroll', updateActivePill);
+
+// ── SCROLL REVEAL
+function initReveals() {
+  const reveals = document.querySelectorAll('.page.active .reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => {
+    el.classList.remove('visible');
+    obs.observe(el);
+  });
+  setTimeout(() => reveals.forEach(el => el.classList.add('visible')), 800);
+}
+initReveals();
+
+// ── COUNTER ANIMATION
+function animateCounter(el) {
+  if (el.dataset.animated) return;
+  el.dataset.animated = '1';
+  const target = parseInt(el.dataset.count);
+  const suffix = el.dataset.suffix || '';
+  const prefix = el.dataset.prefix || '';
+  const dur = 1600;
+  const start = performance.now();
+  const tick = now => {
+    const t = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = prefix + Math.round(ease * target).toLocaleString() + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+function initCounters() {
+  document.querySelectorAll('.page.active [data-count]').forEach(el => {
+    delete el.dataset.animated;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); obs.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    obs.observe(el);
+  });
+}
+initCounters();
+
+// ── ICP ACCORDION
+function toggleICP(trigger) {
+  const body = trigger.nextElementSibling;
+  const toggle = trigger.querySelector('.icp-toggle');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  trigger.classList.toggle('open', !isOpen);
+  if (toggle) toggle.textContent = isOpen ? '+' : '−';
+}
+
+// ── EMAIL TABS
+function switchTab(btn, panelId) {
+  const tabsEl = btn.closest('.email-tabs');
+  const panelsEl = tabsEl.nextElementSibling;
+  tabsEl.querySelectorAll('.email-tab').forEach(t => t.classList.remove('active'));
+  panelsEl.querySelectorAll('.email-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const panel = document.getElementById(panelId);
+  if (panel) panel.classList.add('active');
+}
+</script>
+</body>
+</html>

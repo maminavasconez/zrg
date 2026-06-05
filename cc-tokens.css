@@ -1,0 +1,228 @@
+/* ──────────────────────────────────────────────────────────────────
+   Click Cult — Design Tokens
+   Import this file at the top of any artifact.
+   ──────────────────────────────────────────────────────────────── */
+
+/* Fonts: Google Font substitutes for the production faces.
+   Display ≈ Archivo Black (sub for TT Norms Pro Heavy / PP Neue Machina Ultrabold).
+   Body    ≈ Archivo 400/500/600.                                   */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ── Color: core palette ──────────────────────────────────────── */
+  --cc-ink:           #0A0A0A;   /* near‑black, text + dark sections   */
+  --cc-ink-soft:      #1A1A1A;   /* dark card fills on dark sections   */
+  --cc-ink-2:         #2A2A2A;   /* dark card borders / dividers       */
+
+  --cc-violet:        #7C3AED;   /* primary accent — pills, period     */
+  --cc-violet-bright: #8B5CF6;   /* lighter violet — burst highlights  */
+  --cc-violet-deep:   #5B21B6;   /* hover / pressed                    */
+  --cc-violet-ink:    #3B1C8C;   /* darkest tint for icons on lavender */
+
+  --cc-lavender:      #EAE6FA;   /* hero corner blob, footer wash      */
+  --cc-lavender-2:    #DDD6F3;   /* slightly deeper lavender           */
+
+  --cc-paper:         #FAF8F4;   /* off‑white page background          */
+  --cc-bone:          #F1EEE6;   /* case‑study tile background         */
+  --cc-white:         #FFFFFF;
+
+  /* ── Color: neutrals ──────────────────────────────────────────── */
+  --cc-grey-12:       #F4F4F5;
+  --cc-grey-25:       #E4E4E7;
+  --cc-grey-40:       #B9B9C0;   /* "fade-out" half of two-tone heads  */
+  --cc-grey-55:       #8A8A93;
+  --cc-grey-70:       #5C5C66;
+  --cc-grey-85:       #2E2E36;
+
+  /* ── Color: semantic foreground / background ──────────────────── */
+  --cc-fg-1:          var(--cc-ink);        /* primary text on light   */
+  --cc-fg-2:          var(--cc-grey-70);    /* secondary text on light */
+  --cc-fg-3:          var(--cc-grey-40);    /* tertiary / fade-out     */
+  --cc-fg-inverse:    var(--cc-white);      /* text on dark            */
+  --cc-fg-inverse-2:  var(--cc-grey-40);    /* secondary text on dark  */
+  --cc-fg-accent:     var(--cc-violet);     /* links, periods, eyebrow */
+
+  --cc-bg-1:          var(--cc-white);
+  --cc-bg-2:          var(--cc-paper);
+  --cc-bg-3:          var(--cc-bone);
+  --cc-bg-lavender:   var(--cc-lavender);
+  --cc-bg-dark:       var(--cc-ink);
+  --cc-bg-dark-card:  var(--cc-ink-soft);
+
+  --cc-border:        rgba(10, 10, 10, 1);          /* solid black     */
+  --cc-border-soft:   rgba(10, 10, 10, 0.12);
+  --cc-border-onDark: rgba(255, 255, 255, 0.10);
+  --cc-border-onDark-2: rgba(255, 255, 255, 0.18);
+
+  /* ── Type: families ───────────────────────────────────────────── */
+  --cc-font-display:  'Archivo Black', 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --cc-font-body:     'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --cc-font-mono:     ui-monospace, 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* ── Type: scale ──────────────────────────────────────────────── */
+  --cc-fs-display-xxl: clamp(80px, 11vw, 168px);   /* "GROWTH HACKING." hero  */
+  --cc-fs-display-xl:  clamp(56px, 7vw, 104px);    /* page-headers / marquee  */
+  --cc-fs-display-lg:  clamp(40px, 4.5vw, 64px);   /* "Featured Work." h1     */
+  --cc-fs-display-md:  clamp(28px, 3vw, 40px);     /* section headlines       */
+  --cc-fs-display-sm:  22px;                       /* card headlines          */
+
+  --cc-fs-h1:          40px;
+  --cc-fs-h2:          28px;
+  --cc-fs-h3:          22px;
+  --cc-fs-h4:          18px;
+  --cc-fs-body-lg:     18px;
+  --cc-fs-body:        16px;
+  --cc-fs-body-sm:     14px;
+  --cc-fs-caption:     12px;
+  --cc-fs-eyebrow:     12px;
+
+  --cc-lh-tight:       0.95;
+  --cc-lh-snug:        1.10;
+  --cc-lh-normal:      1.45;
+  --cc-lh-relaxed:     1.6;
+
+  --cc-track-tight:    -0.02em;
+  --cc-track-normal:   0;
+  --cc-track-wide:     0.06em;
+  --cc-track-eyebrow:  0.14em;
+
+  /* ── Spacing ──────────────────────────────────────────────────── */
+  --cc-space-1:        4px;
+  --cc-space-2:        8px;
+  --cc-space-3:        12px;
+  --cc-space-4:        16px;
+  --cc-space-5:        24px;
+  --cc-space-6:        32px;
+  --cc-space-7:        48px;
+  --cc-space-8:        64px;
+  --cc-space-9:        96px;
+  --cc-space-10:       120px;     /* desktop section padding */
+  --cc-space-11:       160px;
+
+  /* ── Radius ───────────────────────────────────────────────────── */
+  --cc-radius-sm:      6px;
+  --cc-radius-md:      12px;
+  --cc-radius-lg:      20px;
+  --cc-radius-xl:      24px;
+  --cc-radius-pill:    999px;
+  --cc-radius-blob:    0 0 240px 0;   /* hero corner blob */
+
+  /* ── Borders ──────────────────────────────────────────────────── */
+  --cc-border-w-thin:  1px;
+  --cc-border-w-mid:   1.5px;       /* nav pills */
+  --cc-border-w-thick: 2px;
+
+  /* ── Shadow (rare — brand is flat) ────────────────────────────── */
+  --cc-shadow-card:    0 12px 32px -12px rgba(10, 10, 10, 0.18);
+  --cc-shadow-pop:     0 24px 60px -20px rgba(10, 10, 10, 0.32);
+
+  /* ── Motion ───────────────────────────────────────────────────── */
+  --cc-ease-out:       cubic-bezier(.2, .7, .3, 1);
+  --cc-ease-marquee:   linear;
+  --cc-dur-fast:       120ms;
+  --cc-dur-mid:        220ms;
+  --cc-dur-slow:       420ms;
+
+  /* ── Z‑indices ────────────────────────────────────────────────── */
+  --cc-z-base:         0;
+  --cc-z-elevated:     10;
+  --cc-z-sticky:       100;
+  --cc-z-overlay:      500;
+  --cc-z-modal:        1000;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Semantic element styles
+   Opt in by adding class="cc" to a wrapping element (or :root).
+   ──────────────────────────────────────────────────────────────── */
+
+.cc, .cc * {
+  box-sizing: border-box;
+}
+
+.cc {
+  font-family: var(--cc-font-body);
+  font-size: var(--cc-fs-body);
+  line-height: var(--cc-lh-normal);
+  color: var(--cc-fg-1);
+  background: var(--cc-bg-1);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.cc h1, .cc .h1,
+.cc h2, .cc .h2,
+.cc h3, .cc .h3,
+.cc h4, .cc .h4 {
+  font-family: var(--cc-font-display);
+  font-weight: 900;
+  letter-spacing: var(--cc-track-tight);
+  line-height: var(--cc-lh-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.cc h1, .cc .h1 { font-size: var(--cc-fs-display-lg); }
+.cc h2, .cc .h2 { font-size: var(--cc-fs-display-md); line-height: var(--cc-lh-snug); }
+.cc h3, .cc .h3 { font-size: var(--cc-fs-h3); }
+.cc h4, .cc .h4 { font-size: var(--cc-fs-h4); }
+
+.cc p, .cc .p {
+  margin: 0;
+  font-size: var(--cc-fs-body);
+  line-height: var(--cc-lh-normal);
+  color: var(--cc-fg-1);
+}
+
+.cc .eyebrow {
+  font-family: var(--cc-font-body);
+  font-size: var(--cc-fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--cc-track-eyebrow);
+  text-transform: uppercase;
+  color: var(--cc-fg-1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cc .eyebrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: var(--cc-radius-pill);
+  background: var(--cc-violet);
+  display: inline-block;
+}
+
+/* The "Purple Period" — the brand's trademark trailing dot. */
+.cc .pp,
+.cc .purple-period {
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: var(--cc-radius-pill);
+  background: var(--cc-violet);
+  vertical-align: baseline;
+  margin-left: 0.06em;
+}
+
+/* Two‑tone headline helper. */
+.cc .fade { color: var(--cc-fg-3); }
+
+/* Code / mono (rare). */
+.cc code, .cc .mono {
+  font-family: var(--cc-font-mono);
+  font-size: 0.9em;
+  background: var(--cc-grey-12);
+  padding: 2px 6px;
+  border-radius: var(--cc-radius-sm);
+}
+
+/* Dark section helper. */
+.cc .on-dark {
+  background: var(--cc-bg-dark);
+  color: var(--cc-fg-inverse);
+}
+.cc .on-dark p,
+.cc .on-dark .p { color: var(--cc-fg-inverse-2); }
